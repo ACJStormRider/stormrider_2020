@@ -19,24 +19,18 @@ public class ProductController {
     @Autowired
     ProductRepository productRepository;
 
+    // Testing method for products - and works as is now. 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(){
         try{
             List<Product> products = new ArrayList<>();
-                System.out.println("Finding all");
-                //products = productRepository.findAll();
-                products = productRepository.findByProductGroupId(1);
-            System.out.println("Got the products");
-
+            products = productRepository.findAll();
 
             if(products.isEmpty()){
                 System.out.println("is Empty");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
 
-            }
-            for(int i = 0; i < products.size(); i++){
-                System.out.println(products.get(i).getProductGroupId());
-            }
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (Exception e){
             System.out.println("Got an error - internal - caught.");
