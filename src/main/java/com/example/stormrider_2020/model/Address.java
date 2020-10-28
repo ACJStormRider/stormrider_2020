@@ -101,4 +101,5 @@ public class Address {
         result = 31 * result + (county != null ? county.hashCode() : 0);
         return result;
     }
+
 }
