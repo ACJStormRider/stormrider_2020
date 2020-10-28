@@ -4,7 +4,6 @@ package com.example.stormrider_2020.controller;
 import com.example.stormrider_2020.model.Address;
 import com.example.stormrider_2020.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class AddressController
             if(addressId == 0)
                 addresses = addressRepository.findAll();
             else
-                addresses = addressRepository.findByTitleContaining(addressId);
+                addresses = addressRepository.getAddressByAddressId(addressId);
             if(addresses.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

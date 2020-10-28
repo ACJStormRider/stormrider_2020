@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface AddressRepository extends JpaRepository<Address, Long>
         {
-        List<Address> findByTitleContaining(int addressId);
+        List<Address> getAddressByAddressId(int addressId);
         }
