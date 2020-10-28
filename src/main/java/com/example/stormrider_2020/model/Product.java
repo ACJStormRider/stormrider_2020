@@ -7,16 +7,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Product {
-
     private int productId;
-    private int inventory;
+    private short inventory;
     private Double discountAmount;
     private Double discountPercentage;
     private String gender;
     private int productGroupId;
-    private int fillingId;
-    private int colorId;
-    private int sizeId;
+    private Integer fillingId;
+    private Integer colorId;
+    private Integer sizeId;
 
     @Id
     @Column(name = "product_id")
@@ -30,11 +29,11 @@ public class Product {
 
     @Basic
     @Column(name = "inventory")
-    public int getInventory() {
+    public short getInventory() {
         return inventory;
     }
 
-    public void setInventory(int inventory) {
+    public void setInventory(short inventory) {
         this.inventory = inventory;
     }
 
@@ -80,31 +79,31 @@ public class Product {
 
     @Basic
     @Column(name = "filling_id")
-    public int getFillingId() {
+    public Integer getFillingId() {
         return fillingId;
     }
 
-    public void setFillingId(int fillingId) {
+    public void setFillingId(Integer fillingId) {
         this.fillingId = fillingId;
     }
 
     @Basic
     @Column(name = "color_id")
-    public int getColorId() {
+    public Integer getColorId() {
         return colorId;
     }
 
-    public void setColorId(int colorId) {
+    public void setColorId(Integer colorId) {
         this.colorId = colorId;
     }
 
     @Basic
     @Column(name = "size_id")
-    public int getSizeId() {
+    public Integer getSizeId() {
         return sizeId;
     }
 
-    public void setSizeId(int sizeId) {
+    public void setSizeId(Integer sizeId) {
         this.sizeId = sizeId;
     }
 
@@ -118,14 +117,14 @@ public class Product {
         if (productId != product.productId) return false;
         if (inventory != product.inventory) return false;
         if (productGroupId != product.productGroupId) return false;
-        if (fillingId != product.fillingId) return false;
-        if (colorId != product.colorId) return false;
-        if (sizeId != product.sizeId) return false;
         if (discountAmount != null ? !discountAmount.equals(product.discountAmount) : product.discountAmount != null)
             return false;
         if (discountPercentage != null ? !discountPercentage.equals(product.discountPercentage) : product.discountPercentage != null)
             return false;
         if (gender != null ? !gender.equals(product.gender) : product.gender != null) return false;
+        if (fillingId != null ? !fillingId.equals(product.fillingId) : product.fillingId != null) return false;
+        if (colorId != null ? !colorId.equals(product.colorId) : product.colorId != null) return false;
+        if (sizeId != null ? !sizeId.equals(product.sizeId) : product.sizeId != null) return false;
 
         return true;
     }
@@ -138,9 +137,9 @@ public class Product {
         result = 31 * result + (discountPercentage != null ? discountPercentage.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + productGroupId;
-        result = 31 * result + fillingId;
-        result = 31 * result + colorId;
-        result = 31 * result + sizeId;
+        result = 31 * result + (fillingId != null ? fillingId.hashCode() : 0);
+        result = 31 * result + (colorId != null ? colorId.hashCode() : 0);
+        result = 31 * result + (sizeId != null ? sizeId.hashCode() : 0);
         return result;
     }
 }

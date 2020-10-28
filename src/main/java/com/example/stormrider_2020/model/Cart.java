@@ -12,10 +12,10 @@ public class Cart {
     private Double totalPrice;
     private Double vat;
     private Double totalDiscount;
-    private int voucherId;
-    private int billingAddressId;
-    private int shippingAddressId;
-    private int customerId;
+    private Integer voucherId;
+    private Integer billingAddressId;
+    private Integer shippingAddressId;
+    private Integer customerId;
 
     @Id
     @Column(name = "cart_id")
@@ -69,41 +69,41 @@ public class Cart {
 
     @Basic
     @Column(name = "voucher_id")
-    public int getVoucherId() {
+    public Integer getVoucherId() {
         return voucherId;
     }
 
-    public void setVoucherId(int voucherId) {
+    public void setVoucherId(Integer voucherId) {
         this.voucherId = voucherId;
     }
 
     @Basic
     @Column(name = "billing_address_id")
-    public int getBillingAddressId() {
+    public Integer getBillingAddressId() {
         return billingAddressId;
     }
 
-    public void setBillingAddressId(int billingAddressId) {
+    public void setBillingAddressId(Integer billingAddressId) {
         this.billingAddressId = billingAddressId;
     }
 
     @Basic
     @Column(name = "shipping_address_id")
-    public int getShippingAddressId() {
+    public Integer getShippingAddressId() {
         return shippingAddressId;
     }
 
-    public void setShippingAddressId(int shippingAddressId) {
+    public void setShippingAddressId(Integer shippingAddressId) {
         this.shippingAddressId = shippingAddressId;
     }
 
     @Basic
     @Column(name = "customer_id")
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
@@ -115,15 +115,17 @@ public class Cart {
         Cart cart = (Cart) o;
 
         if (cartId != cart.cartId) return false;
-        if (voucherId != cart.voucherId) return false;
-        if (billingAddressId != cart.billingAddressId) return false;
-        if (shippingAddressId != cart.shippingAddressId) return false;
-        if (customerId != cart.customerId) return false;
         if (status != null ? !status.equals(cart.status) : cart.status != null) return false;
         if (totalPrice != null ? !totalPrice.equals(cart.totalPrice) : cart.totalPrice != null) return false;
         if (vat != null ? !vat.equals(cart.vat) : cart.vat != null) return false;
         if (totalDiscount != null ? !totalDiscount.equals(cart.totalDiscount) : cart.totalDiscount != null)
             return false;
+        if (voucherId != null ? !voucherId.equals(cart.voucherId) : cart.voucherId != null) return false;
+        if (billingAddressId != null ? !billingAddressId.equals(cart.billingAddressId) : cart.billingAddressId != null)
+            return false;
+        if (shippingAddressId != null ? !shippingAddressId.equals(cart.shippingAddressId) : cart.shippingAddressId != null)
+            return false;
+        if (customerId != null ? !customerId.equals(cart.customerId) : cart.customerId != null) return false;
 
         return true;
     }
@@ -135,10 +137,10 @@ public class Cart {
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
         result = 31 * result + (vat != null ? vat.hashCode() : 0);
         result = 31 * result + (totalDiscount != null ? totalDiscount.hashCode() : 0);
-        result = 31 * result + voucherId;
-        result = 31 * result + billingAddressId;
-        result = 31 * result + shippingAddressId;
-        result = 31 * result + customerId;
+        result = 31 * result + (voucherId != null ? voucherId.hashCode() : 0);
+        result = 31 * result + (billingAddressId != null ? billingAddressId.hashCode() : 0);
+        result = 31 * result + (shippingAddressId != null ? shippingAddressId.hashCode() : 0);
+        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
         return result;
     }
 }
