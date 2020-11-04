@@ -46,11 +46,11 @@ public class Admin {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Admin admin = (Admin) o;
+        Admin admin1 = (Admin) o;
 
-        if (adminId != admin.adminId) return false;
-        if (userName != null ? !userName.equals(admin.userName) : admin.userName != null) return false;
-        if (password != null ? !password.equals(admin.password) : admin.password != null) return false;
+        if (adminId != admin1.adminId) return false;
+        if (userName != null ? !userName.equals(admin1.userName) : admin1.userName != null) return false;
+        if (password != null ? !password.equals(admin1.password) : admin1.password != null) return false;
 
         return true;
     }

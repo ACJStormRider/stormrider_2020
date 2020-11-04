@@ -20,7 +20,7 @@ public class GeoIP2
     CityResponse response = dbReader.city(ipAddress);
 
     Country country = response.getCountry();
-    //System.out.println(country.getIsocode()); compiler error for sout?
+
 
     public GeoIP2() throws IOException, GeoIp2Exception {
     }
