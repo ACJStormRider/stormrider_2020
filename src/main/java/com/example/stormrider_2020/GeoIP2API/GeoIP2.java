@@ -12,7 +12,7 @@ import java.net.InetAddress;
 
 public class GeoIP2
 {
-    File database = new File("C:/Users/UWQUAD/Desktop/stormrider_2020/GetLite2-City.mmdb");
+    File database = new File("C:/Users/Juste/Google Drive/@ MANO/Mokslai/@KEA/AP Computer Science_/3rd. Semester/Programming 2/@Projects/Mandatory Project 1 - Storm Rider/stormrider_2020/GetLite2-City.mmdb");
     DatabaseReader dbReader = new DatabaseReader.Builder(database).build();
 
     InetAddress ipAddress = InetAddress.getByName("128.101.101.101");

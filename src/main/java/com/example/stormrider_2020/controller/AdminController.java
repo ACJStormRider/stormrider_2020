@@ -17,7 +17,7 @@ import java.util.Optional;
 public class AdminController
 {
     @Autowired
-    AdminController adminRepository;
+    AdminRepository adminRepository;
 
     @GetMapping("/admin")
     public ResponseEntity<List<Admin>> getAllAdmin(@RequestParam(required = false) int adminId)
@@ -27,9 +27,9 @@ public class AdminController
             List<Admin> admins = new ArrayList<>();
 
             if (adminId == 0)
-                admins = adminRepository.
+                admins = adminRepository.findAll();
             else
-                admins = (List<Admin>) adminRepository.getAdminById(adminId);
+                admins = adminRepository.getAdminByAdminId(adminId);
             if (admins.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -44,7 +44,7 @@ public class AdminController
     }
 
     @GetMapping("/admin{id}")
-    public ResponseEntity<List<Admin>> getAdminById(@PathVariable("id") long id)
+    public ResponseEntity<Admin> getAdminById(@PathVariable("id") long id)
     {
         Optional<Admin> adminData = adminRepository.findById(id);
         if(adminData.isPresent())
@@ -68,15 +68,15 @@ public class AdminController
     }
 
     @PutMapping("/admin_id{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable("id"), long id, @RequestBody Admin admin)
+    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") long id, @RequestBody Admin admin)
     {
         Optional<Admin> adminData = adminRepository.findById(id);
 
         if(adminData.isPresent())
         {
             Admin admin1 = adminData.get();
-            admin1.setUserName();
-            admin1.setPassword();
+            admin1.setUserName(admin.getUserName());
+            admin1.setPassword(admin.getPassword());
             return new ResponseEntity<>(adminRepository.save(admin1), HttpStatus.OK);
         }
         else
@@ -90,7 +90,7 @@ public class AdminController
     {
         try
         {
-            adminRepository.deleteAdmin(id);
+            adminRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         catch (Exception e)
