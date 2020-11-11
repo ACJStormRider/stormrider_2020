@@ -32,8 +32,6 @@ public class AddressController
     }
 
 
-
-
     @GetMapping("/address{id}")
     public ResponseEntity<Address> getAddressById(@PathVariable("id") long id)
     {
@@ -54,10 +52,12 @@ public class AddressController
         return addressService.update(id, address);
     }
 
+
     @DeleteMapping("/address_id/{id}")
     public ResponseEntity<HttpStatus> deleteAddress(@PathVariable("id") long id)
     {
         return addressService.delete(id);
     }
+
 
 }

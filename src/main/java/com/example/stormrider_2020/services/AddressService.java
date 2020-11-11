@@ -18,6 +18,7 @@ public class AddressService
     @Autowired
     AddressRepository addressRepository;
 
+
     public ResponseEntity<List<Address>> getAll(int addressId)
     {
         try {
@@ -38,6 +39,7 @@ public class AddressService
         }
     }
 
+
     public ResponseEntity<Address> getById(long id)
     {
         Optional<Address> addressData = addressRepository.findById(id);
@@ -46,6 +48,7 @@ public class AddressService
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
     public ResponseEntity<Address> create(Address address)
     {
@@ -56,6 +59,7 @@ public class AddressService
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     public ResponseEntity<Address> update(long id, Address address)
     {
@@ -77,6 +81,7 @@ public class AddressService
         }
     }
 
+
     public ResponseEntity<HttpStatus> delete(long id)
     {
         try
@@ -89,7 +94,6 @@ public class AddressService
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 
 }
