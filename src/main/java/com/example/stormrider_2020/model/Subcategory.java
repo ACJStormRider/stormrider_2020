@@ -1,44 +1,27 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 
 @Entity
 public class Subcategory {
     private int subCategoryId;
-    private String name;
-    private int categoryId;
+    private Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesBySubCategoryId;
+    private Collection<SubcategoryHasCategory> subcategoryHasCategoriesBySubCategoryId;
+    private Collection<SubcategoryLanguage> subcategoryLanguagesBySubCategoryId;
+    private Collection<VoucherHasSubcategory> voucherHasSubcategoriesBySubCategoryId;
 
     @Id
-    @Column(name = "sub_category_id")
+    @Column(name = "sub_category_id", nullable = false)
     public int getSubCategoryId() {
         return subCategoryId;
     }
 
     public void setSubCategoryId(int subCategoryId) {
         this.subCategoryId = subCategoryId;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "category_id")
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     @Override
@@ -49,17 +32,48 @@ public class Subcategory {
         Subcategory that = (Subcategory) o;
 
         if (subCategoryId != that.subCategoryId) return false;
-        if (categoryId != that.categoryId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = subCategoryId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + categoryId;
-        return result;
+        return subCategoryId;
+    }
+
+    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
+    public Collection<ProductGroupHasSubcategory> getProductGroupHasSubcategoriesBySubCategoryId() {
+        return productGroupHasSubcategoriesBySubCategoryId;
+    }
+
+    public void setProductGroupHasSubcategoriesBySubCategoryId(Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesBySubCategoryId) {
+        this.productGroupHasSubcategoriesBySubCategoryId = productGroupHasSubcategoriesBySubCategoryId;
+    }
+
+    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
+    public Collection<SubcategoryHasCategory> getSubcategoryHasCategoriesBySubCategoryId() {
+        return subcategoryHasCategoriesBySubCategoryId;
+    }
+
+    public void setSubcategoryHasCategoriesBySubCategoryId(Collection<SubcategoryHasCategory> subcategoryHasCategoriesBySubCategoryId) {
+        this.subcategoryHasCategoriesBySubCategoryId = subcategoryHasCategoriesBySubCategoryId;
+    }
+
+    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
+    public Collection<SubcategoryLanguage> getSubcategoryLanguagesBySubCategoryId() {
+        return subcategoryLanguagesBySubCategoryId;
+    }
+
+    public void setSubcategoryLanguagesBySubCategoryId(Collection<SubcategoryLanguage> subcategoryLanguagesBySubCategoryId) {
+        this.subcategoryLanguagesBySubCategoryId = subcategoryLanguagesBySubCategoryId;
+    }
+
+    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
+    public Collection<VoucherHasSubcategory> getVoucherHasSubcategoriesBySubCategoryId() {
+        return voucherHasSubcategoriesBySubCategoryId;
+    }
+
+    public void setVoucherHasSubcategoriesBySubCategoryId(Collection<VoucherHasSubcategory> voucherHasSubcategoriesBySubCategoryId) {
+        this.voucherHasSubcategoriesBySubCategoryId = voucherHasSubcategoriesBySubCategoryId;
     }
 }

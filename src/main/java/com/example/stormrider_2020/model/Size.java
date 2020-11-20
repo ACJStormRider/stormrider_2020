@@ -1,33 +1,25 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 
 @Entity
 public class Size {
     private int sizeId;
-    private String name;
+    private Collection<Product> productsBySizeId;
+    private Collection<SizeLanguage> sizeLanguagesBySizeId;
 
     @Id
-    @Column(name = "size_id")
+    @Column(name = "size_id", nullable = false)
     public int getSizeId() {
         return sizeId;
     }
 
     public void setSizeId(int sizeId) {
         this.sizeId = sizeId;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -38,15 +30,30 @@ public class Size {
         Size size = (Size) o;
 
         if (sizeId != size.sizeId) return false;
-        if (name != null ? !name.equals(size.name) : size.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = sizeId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return sizeId;
+    }
+
+    @OneToMany(mappedBy = "sizeBySizeId")
+    public Collection<Product> getProductsBySizeId() {
+        return productsBySizeId;
+    }
+
+    public void setProductsBySizeId(Collection<Product> productsBySizeId) {
+        this.productsBySizeId = productsBySizeId;
+    }
+
+    @OneToMany(mappedBy = "sizeBySizeId")
+    public Collection<SizeLanguage> getSizeLanguagesBySizeId() {
+        return sizeLanguagesBySizeId;
+    }
+
+    public void setSizeLanguagesBySizeId(Collection<SizeLanguage> sizeLanguagesBySizeId) {
+        this.sizeLanguagesBySizeId = sizeLanguagesBySizeId;
     }
 }
