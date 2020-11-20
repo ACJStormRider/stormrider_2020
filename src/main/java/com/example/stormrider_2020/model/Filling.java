@@ -1,33 +1,25 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 
 @Entity
 public class Filling {
     private int fillingId;
-    private String name;
+    private Collection<FillingLanguage> fillingLanguagesByFillingId;
+    private Collection<Product> productsByFillingId;
 
     @Id
-    @Column(name = "filling_id")
+    @Column(name = "filling_id", nullable = false)
     public int getFillingId() {
         return fillingId;
     }
 
     public void setFillingId(int fillingId) {
         this.fillingId = fillingId;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -38,15 +30,30 @@ public class Filling {
         Filling filling = (Filling) o;
 
         if (fillingId != filling.fillingId) return false;
-        if (name != null ? !name.equals(filling.name) : filling.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = fillingId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return fillingId;
+    }
+
+    @OneToMany(mappedBy = "fillingByFillingId")
+    public Collection<FillingLanguage> getFillingLanguagesByFillingId() {
+        return fillingLanguagesByFillingId;
+    }
+
+    public void setFillingLanguagesByFillingId(Collection<FillingLanguage> fillingLanguagesByFillingId) {
+        this.fillingLanguagesByFillingId = fillingLanguagesByFillingId;
+    }
+
+    @OneToMany(mappedBy = "fillingByFillingId")
+    public Collection<Product> getProductsByFillingId() {
+        return productsByFillingId;
+    }
+
+    public void setProductsByFillingId(Collection<Product> productsByFillingId) {
+        this.productsByFillingId = productsByFillingId;
     }
 }

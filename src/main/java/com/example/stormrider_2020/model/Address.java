@@ -1,9 +1,7 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Address {
@@ -13,9 +11,11 @@ public class Address {
     private String city;
     private String country;
     private String county;
+    private Collection<Cart> cartsByAddressId;
+    private Collection<Cart> cartsByAddressId_0;
 
     @Id
-    @Column(name = "address_id")
+    @Column(name = "address_id", nullable = false)
     public int getAddressId() {
         return addressId;
     }
@@ -25,7 +25,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "address")
+    @Column(name = "address", nullable = false, length = 100)
     public String getAddress() {
         return address;
     }
@@ -35,7 +35,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "zip")
+    @Column(name = "zip", nullable = false, length = 15)
     public String getZip() {
         return zip;
     }
@@ -45,7 +45,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "city")
+    @Column(name = "city", nullable = false, length = 45)
     public String getCity() {
         return city;
     }
@@ -55,7 +55,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "country")
+    @Column(name = "country", nullable = false, length = 56)
     public String getCountry() {
         return country;
     }
@@ -65,7 +65,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "county")
+    @Column(name = "county", nullable = false, length = 45)
     public String getCounty() {
         return county;
     }
@@ -102,4 +102,21 @@ public class Address {
         return result;
     }
 
+    @OneToMany(mappedBy = "addressByBillingAddressId")
+    public Collection<Cart> getCartsByAddressId() {
+        return cartsByAddressId;
+    }
+
+    public void setCartsByAddressId(Collection<Cart> cartsByAddressId) {
+        this.cartsByAddressId = cartsByAddressId;
+    }
+
+    @OneToMany(mappedBy = "addressByShippingAddressId")
+    public Collection<Cart> getCartsByAddressId_0() {
+        return cartsByAddressId_0;
+    }
+
+    public void setCartsByAddressId_0(Collection<Cart> cartsByAddressId_0) {
+        this.cartsByAddressId_0 = cartsByAddressId_0;
+    }
 }

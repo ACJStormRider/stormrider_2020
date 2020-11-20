@@ -1,33 +1,25 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 
 @Entity
 public class Color {
     private int colorId;
-    private String name;
+    private Collection<ColorLanguage> colorLanguagesByColorId;
+    private Collection<Product> productsByColorId;
 
     @Id
-    @Column(name = "color_id")
+    @Column(name = "color_id", nullable = false)
     public int getColorId() {
         return colorId;
     }
 
     public void setColorId(int colorId) {
         this.colorId = colorId;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -38,15 +30,30 @@ public class Color {
         Color color = (Color) o;
 
         if (colorId != color.colorId) return false;
-        if (name != null ? !name.equals(color.name) : color.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = colorId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return colorId;
+    }
+
+    @OneToMany(mappedBy = "colorByColorId")
+    public Collection<ColorLanguage> getColorLanguagesByColorId() {
+        return colorLanguagesByColorId;
+    }
+
+    public void setColorLanguagesByColorId(Collection<ColorLanguage> colorLanguagesByColorId) {
+        this.colorLanguagesByColorId = colorLanguagesByColorId;
+    }
+
+    @OneToMany(mappedBy = "colorByColorId")
+    public Collection<Product> getProductsByColorId() {
+        return productsByColorId;
+    }
+
+    public void setProductsByColorId(Collection<Product> productsByColorId) {
+        this.productsByColorId = productsByColorId;
     }
 }

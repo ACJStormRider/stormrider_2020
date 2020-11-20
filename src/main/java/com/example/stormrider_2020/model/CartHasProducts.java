@@ -6,12 +6,12 @@ import javax.persistence.*;
 @Table(name = "cart_has_products", schema = "stormrider", catalog = "")
 public class CartHasProducts {
     private int cartHasProductId;
-    private int productId;
     private int amount;
-    private int cartId;
+    private Product productByProductId;
+    private Cart cartByCartId;
 
     @Id
-    @Column(name = "cart_has_product_id")
+    @Column(name = "cart_has_product_id", nullable = false)
     public int getCartHasProductId() {
         return cartHasProductId;
     }
@@ -21,33 +21,13 @@ public class CartHasProducts {
     }
 
     @Basic
-    @Column(name = "product_id")
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    @Basic
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     public int getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    @Basic
-    @Column(name = "cart_id")
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
     }
 
     @Override
@@ -58,9 +38,7 @@ public class CartHasProducts {
         CartHasProducts that = (CartHasProducts) o;
 
         if (cartHasProductId != that.cartHasProductId) return false;
-        if (productId != that.productId) return false;
         if (amount != that.amount) return false;
-        if (cartId != that.cartId) return false;
 
         return true;
     }
@@ -68,9 +46,27 @@ public class CartHasProducts {
     @Override
     public int hashCode() {
         int result = cartHasProductId;
-        result = 31 * result + productId;
         result = 31 * result + amount;
-        result = 31 * result + cartId;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    public Product getProductByProductId() {
+        return productByProductId;
+    }
+
+    public void setProductByProductId(Product productByProductId) {
+        this.productByProductId = productByProductId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id", nullable = false)
+    public Cart getCartByCartId() {
+        return cartByCartId;
+    }
+
+    public void setCartByCartId(Cart cartByCartId) {
+        this.cartByCartId = cartByCartId;
     }
 }

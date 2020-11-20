@@ -1,9 +1,7 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Customer {
@@ -14,9 +12,10 @@ public class Customer {
     private String phone;
     private String cvrNumber;
     private String companyName;
+    private Collection<Cart> cartsByCustomerId;
 
     @Id
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     public int getCustomerId() {
         return customerId;
     }
@@ -26,7 +25,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 80)
     public String getFirstName() {
         return firstName;
     }
@@ -36,7 +35,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     public String getLastName() {
         return lastName;
     }
@@ -46,7 +45,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 120)
     public String getEmail() {
         return email;
     }
@@ -56,7 +55,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false, length = 45)
     public String getPhone() {
         return phone;
     }
@@ -66,7 +65,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "cvr_number")
+    @Column(name = "cvr_number", nullable = true, length = 10)
     public String getCvrNumber() {
         return cvrNumber;
     }
@@ -76,7 +75,7 @@ public class Customer {
     }
 
     @Basic
-    @Column(name = "company_name")
+    @Column(name = "company_name", nullable = true, length = 120)
     public String getCompanyName() {
         return companyName;
     }
@@ -114,5 +113,14 @@ public class Customer {
         result = 31 * result + (cvrNumber != null ? cvrNumber.hashCode() : 0);
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "customerByCustomerId")
+    public Collection<Cart> getCartsByCustomerId() {
+        return cartsByCustomerId;
+    }
+
+    public void setCartsByCustomerId(Collection<Cart> cartsByCustomerId) {
+        this.cartsByCustomerId = cartsByCustomerId;
     }
 }
