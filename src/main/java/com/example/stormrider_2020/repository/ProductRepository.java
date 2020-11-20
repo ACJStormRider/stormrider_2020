@@ -1,6 +1,7 @@
 package com.example.stormrider_2020.repository;
 
-import com.example.stormrider_2020.modelOLD.Product;
+
+import com.example.stormrider_2020.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
