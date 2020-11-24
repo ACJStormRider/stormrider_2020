@@ -3,7 +3,6 @@ package com.example.stormrider_2020.controller;
 
 import com.example.stormrider_2020.model.Category;
 import com.example.stormrider_2020.repository.CategoryRepository;
-import com.example.stormrider_2020.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,7 @@ public class CategoryController
     @PostMapping("/category")
     public ResponseEntity<Category> createCategory(@RequestBody Category category){
         try {
-            Category category1 = categoryRepository.saveAll(category);
+            Category category1 = categoryRepository.save(category);
             return new ResponseEntity<>(category1, HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
