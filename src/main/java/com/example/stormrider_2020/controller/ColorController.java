@@ -2,7 +2,6 @@ package com.example.stormrider_2020.controller;
 
 import com.example.stormrider_2020.model.Color;
 import com.example.stormrider_2020.repository.ColorRepository;
-import com.example.stormrider_2020.services.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
