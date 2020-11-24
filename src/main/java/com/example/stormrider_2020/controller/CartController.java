@@ -27,7 +27,24 @@ public class CartController
     @GetMapping("/cart")
     public ResponseEntity<List<Cart>> getAllCart(@RequestParam(required = false) int cartId)
     {
-        return cartService.getAll(cartId);
+        public ResponseEntity<List<Cart>> getAllCart(int cartId) {
+        try
+        {
+            List<Cart> carts = new ArrayList<>();
+
+            if(cartId == 0)
+                carts = cartRepository.findAll();
+            else
+                carts = cartRepository.getCartByCartId(cartId);
+            if (carts.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            return new ResponseEntity<>(carts, HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

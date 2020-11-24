@@ -20,23 +20,11 @@ public class CartService
 
     public ResponseEntity<List<Cart>> getAll(int cartId)
     {
-        try
-        {
-            List<Cart> carts = new ArrayList<>();
+        return getAllCart(cartId);
+    }
 
-            if(cartId == 0)
-                carts = cartRepository.findAll();
-            else
-                carts = cartRepository.getCartByCartId(cartId);
-            if (carts.isEmpty())
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            return new ResponseEntity<>(carts, HttpStatus.OK);
-        }
-        catch (Exception e)
-        {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
 

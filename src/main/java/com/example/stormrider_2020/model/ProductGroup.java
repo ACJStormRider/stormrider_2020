@@ -2,6 +2,8 @@ package com.example.stormrider_2020.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "product_group", schema = "stormrider", catalog = "")
@@ -16,6 +18,17 @@ public class ProductGroup {
     private Collection<VoucherHasProductGroup> voucherHasProductGroupsByProductGroupId;
 
     @Id
+    /**
+     * M2M productgroup & subcategory
+     * overwritten from generated class
+     */
+    /*@ManyToMany
+    @JoinTable(
+            name = "ProductGroupHasSubcategory",
+            joinColumns = @JoinColumn(name = "product_group_id"),,
+            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
+    Set<Subcategory> subcategories;*/
+
     @Column(name = "product_group_id", nullable = false)
     public int getProductGroupId() {
         return productGroupId;
@@ -115,4 +128,5 @@ public class ProductGroup {
     public void setVoucherHasProductGroupsByProductGroupId(Collection<VoucherHasProductGroup> voucherHasProductGroupsByProductGroupId) {
         this.voucherHasProductGroupsByProductGroupId = voucherHasProductGroupsByProductGroupId;
     }
+
 }

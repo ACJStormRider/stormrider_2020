@@ -1,10 +1,8 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Subcategory {
@@ -15,6 +13,19 @@ public class Subcategory {
     private Collection<VoucherHasSubcategory> voucherHasSubcategoriesBySubCategoryId;
 
     @Id
+    /**
+     * M2M productgroup & subcategory
+     * overwritten from generated class
+     */
+    /*@ManyToMany
+    @JoinTable(
+            name = "ProductGroupHasSubcategory",
+            joinColumns = @JoinColumn(name = "subcategory_id"),,
+            inverseJoinColumns = @JoinColumn(name = "product_group_id"))
+    Set<ProductGroup> productGroups;*/
+
+    //classes generated wrong
+
     @Column(name = "sub_category_id", nullable = false)
     public int getSubCategoryId() {
         return subCategoryId;
