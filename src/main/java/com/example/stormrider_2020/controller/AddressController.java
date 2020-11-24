@@ -15,8 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class AddressController
-{
+public class AddressController{
 
     @Autowired
     AddressRepository addressRepository;
@@ -26,36 +25,31 @@ public class AddressController
 
 
     @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAllAddress(@RequestParam(required = false) int addressId)
-    {
+    public ResponseEntity<List<Address>> getAllAddress(@RequestParam(required = false) int addressId){
             return addressService.getAll(addressId);
     }
 
 
     @GetMapping("/address{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable("id") long id)
-    {
+    public ResponseEntity<Address> getAddressById(@PathVariable("id") long id){
         return addressService.getById(id);
     }
 
 
     @PostMapping("/address")
-    public ResponseEntity<Address> createAddress(@RequestBody Address address)
-    {
+    public ResponseEntity<Address> createAddress(@RequestBody Address address){
         return addressService.create(address);
     }
 
 
     @PutMapping("/address_id{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable("id") long id, @RequestBody Address address)
-    {
+    public ResponseEntity<Address> updateAddress(@PathVariable("id") long id, @RequestBody Address address){
         return addressService.update(id, address);
     }
 
 
     @DeleteMapping("/address_id/{id}")
-    public ResponseEntity<HttpStatus> deleteAddress(@PathVariable("id") long id)
-    {
+    public ResponseEntity<HttpStatus> deleteAddress(@PathVariable("id") long id){
         return addressService.delete(id);
     }
 
