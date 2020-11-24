@@ -3,7 +3,6 @@ package com.example.stormrider_2020.controller;
 
 import com.example.stormrider_2020.model.Admin;
 import com.example.stormrider_2020.repository.AdminRepository;
-import com.example.stormrider_2020.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,42 +19,68 @@ public class AdminController
     @Autowired
     AdminRepository adminRepository;
 
-    @Autowired
-    AdminService adminService;
-
 
     @GetMapping("/admin")
-    public ResponseEntity<List<Admin>> getAllAdmin(@RequestParam(required = false) int adminId)
-    {
-        return adminService.getAll(adminId);
+    public ResponseEntity<List<Admin>> getAllAdmin(){
+        try {
+            List<Admin> admins = new ArrayList<>();
+            admins = adminRepository.findAll();
+
+            if (admins.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(admins, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
     @GetMapping("/admin{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable("id") long id)
-    {
-        return adminService.getById(id);
+    public ResponseEntity<Admin> getAdminById(long id){
+        Optional<Admin> adminData = adminRepository.findById(id);
+        if (adminData.isPresent())
+            return new ResponseEntity<>(adminData.get(), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @PostMapping("/admin")
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin)
-    {
-        return adminService.create(admin);
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin){
+        try {
+            Admin admin1 = adminRepository.save(admin);
+            return new ResponseEntity<>(admin1, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
     @PutMapping("/admin_id{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") long id, @RequestBody Admin admin)
-    {
-        return adminService.update(id, admin);
+    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") long id, @RequestBody Admin admin){
+        Optional<Admin> adminData = adminRepository.findById(id);
+
+        if (adminData.isPresent()){
+            Admin admin1 = adminData.get();
+            admin1.setUserName(admin.getUserName());
+            admin1.setPassword(admin.getPassword());
+            admin1.setEmail(admin.getEmail());
+            return new ResponseEntity<>(adminRepository.save(admin1), HttpStatus.OK);
+        } else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @DeleteMapping("/admin_id{id}")
-    public ResponseEntity<HttpStatus> deleteAdmin(@PathVariable("id") long id)
-    {
-        return adminService.delete(id);
+    public ResponseEntity<HttpStatus> deleteAdmin(@PathVariable("id") long id){
+        try {
+            adminRepository.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
