@@ -76,7 +76,7 @@ public class AdminController
     @DeleteMapping("/admin_id{id}")
     public ResponseEntity<HttpStatus> deleteAdmin(@PathVariable("id") long id){
         try {
-            adminRepository.delete(id);
+            adminRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
