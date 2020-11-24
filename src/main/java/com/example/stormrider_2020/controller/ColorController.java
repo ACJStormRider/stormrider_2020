@@ -48,7 +48,7 @@ public class ColorController
     @PutMapping("/color_id{id}")
     public ResponseEntity<Color> updateColor(@PathVariable("id") long id, @RequestBody Color color)
     {
-        return colorService.update(id, color);
+        return null; // colorService.update(id, color);
     }
 
 

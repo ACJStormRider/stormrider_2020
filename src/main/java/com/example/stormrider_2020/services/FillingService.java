@@ -64,7 +64,7 @@ public class FillingService
         }
     }
 
-
+/*
     public ResponseEntity<Filling> update(long id, Filling filling)
     {
         Optional<Filling> fillingData = fillingRepository.findById(id);
@@ -80,7 +80,7 @@ public class FillingService
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+*/
 
     public ResponseEntity<HttpStatus> delete(long id)
     {

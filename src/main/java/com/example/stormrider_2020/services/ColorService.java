@@ -63,7 +63,7 @@ public class ColorService
         }
     }
 
-
+/*
     public ResponseEntity<Color> update(long id, Color color)
     {
         Optional<Color> colorData = colorRepository.findById(id);
@@ -79,7 +79,7 @@ public class ColorService
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+*/
 
     public ResponseEntity<HttpStatus> delete(long id)
     {

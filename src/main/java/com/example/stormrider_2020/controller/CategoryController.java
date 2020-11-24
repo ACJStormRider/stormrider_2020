@@ -49,7 +49,7 @@ public class CategoryController
     @PutMapping("/category_id{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") long id, @RequestBody Category category)
     {
-        return categoryService.update(id, category);
+        return null; //categoryService.update(id, category);
     }
 
 

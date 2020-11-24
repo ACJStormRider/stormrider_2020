@@ -50,6 +50,7 @@ public class CartService
     }
 
 
+    /*
     public ResponseEntity<Cart> update(long id, Cart cart)
     {
         Optional<Cart> cartData = cartRepository.findById(id);
@@ -76,6 +77,8 @@ public class CartService
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    */
+
 
 
     public ResponseEntity<HttpStatus> delete(long id)

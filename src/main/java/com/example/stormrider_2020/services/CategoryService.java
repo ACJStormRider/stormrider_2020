@@ -65,7 +65,7 @@ public class CategoryService
         }
     }
 
-
+/*
     public ResponseEntity<Category> update(long id, Category category)
     {
         Optional<Category> categoryData = categoryRepository.findById(id);
@@ -81,7 +81,7 @@ public class CategoryService
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+*/
 
     public ResponseEntity<HttpStatus> delete(long id)
     {
