@@ -50,22 +50,24 @@ public class ProductGroupHasSubcategory {
         result = 31 * result + subcategoryId;
         return result;
     }
-
+/*
     @ManyToOne
     @JoinColumn(name = "product_group_id", referencedColumnName = "product_group_id", nullable = false)
     public ProductGroup getProductGroupByProductGroupId() {
         return productGroupByProductGroupId;
     }
-
+*/
     public void setProductGroupByProductGroupId(ProductGroup productGroupByProductGroupId) {
         this.productGroupByProductGroupId = productGroupByProductGroupId;
     }
-
+/*
     @ManyToOne
     @JoinColumn(name = "subcategory_id", referencedColumnName = "sub_category_id", nullable = false)
     public Subcategory getSubcategoryBySubcategoryId() {
         return subcategoryBySubcategoryId;
     }
+
+ */
 
     public void setSubcategoryBySubcategoryId(Subcategory subcategoryBySubcategoryId) {
         this.subcategoryBySubcategoryId = subcategoryBySubcategoryId;

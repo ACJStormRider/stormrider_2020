@@ -12,6 +12,7 @@ public class ProductGroup {
     private double basePrice;
     private double vat;
     private Collection<Product> productsByProductGroupId;
+
     private Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesByProductGroupId;
     private Collection<ProductGroupLanguage> productGroupLanguagesByProductGroupId;
     private Collection<ProductImage> productImagesByProductGroupId;
@@ -92,12 +93,12 @@ public class ProductGroup {
     public void setProductsByProductGroupId(Collection<Product> productsByProductGroupId) {
         this.productsByProductGroupId = productsByProductGroupId;
     }
-
+/*
     @OneToMany(mappedBy = "productGroupByProductGroupId")
     public Collection<ProductGroupHasSubcategory> getProductGroupHasSubcategoriesByProductGroupId() {
         return productGroupHasSubcategoriesByProductGroupId;
     }
-
+*/
     public void setProductGroupHasSubcategoriesByProductGroupId(Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesByProductGroupId) {
         this.productGroupHasSubcategoriesByProductGroupId = productGroupHasSubcategoriesByProductGroupId;
     }

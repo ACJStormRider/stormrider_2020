@@ -51,8 +51,9 @@ public class VoucherHasProductGroup {
         return result;
     }
 
+    /*
     @ManyToOne
-    @JoinColumn(name = "voucher_id", referencedColumnName = "voucher_id", nullable = false)
+    @JoinColumn(name = "voucher_id", referencedColumnName = "voucher_id", nullable = false, insertable=false, updatable=false)
     public Voucher getVoucherByVoucherId() {
         return voucherByVoucherId;
     }
@@ -62,10 +63,11 @@ public class VoucherHasProductGroup {
     }
 
     @ManyToOne
-    @JoinColumn(name = "group_product_id", referencedColumnName = "product_group_id", nullable = false)
+    @JoinColumn(name = "group_product_id", referencedColumnName = "product_group_id", nullable = false, insertable=false, updatable=false)
     public ProductGroup getProductGroupByGroupProductId() {
         return productGroupByGroupProductId;
     }
+    */
 
     public void setProductGroupByGroupProductId(ProductGroup productGroupByGroupProductId) {
         this.productGroupByGroupProductId = productGroupByGroupProductId;
