@@ -3,16 +3,10 @@ package com.example.stormrider_2020.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Collection;
 
 @Entity
 public class Subcategory {
     private int subCategoryId;
-    private Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesBySubCategoryId;
-    private Collection<SubcategoryHasCategory> subcategoryHasCategoriesBySubCategoryId;
-    private Collection<SubcategoryLanguage> subcategoryLanguagesBySubCategoryId;
-    private Collection<VoucherHasSubcategory> voucherHasSubcategoriesBySubCategoryId;
 
     @Id
     @Column(name = "sub_category_id", nullable = false)
@@ -39,41 +33,5 @@ public class Subcategory {
     @Override
     public int hashCode() {
         return subCategoryId;
-    }
-
-    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
-    public Collection<ProductGroupHasSubcategory> getProductGroupHasSubcategoriesBySubCategoryId() {
-        return productGroupHasSubcategoriesBySubCategoryId;
-    }
-
-    public void setProductGroupHasSubcategoriesBySubCategoryId(Collection<ProductGroupHasSubcategory> productGroupHasSubcategoriesBySubCategoryId) {
-        this.productGroupHasSubcategoriesBySubCategoryId = productGroupHasSubcategoriesBySubCategoryId;
-    }
-
-    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
-    public Collection<SubcategoryHasCategory> getSubcategoryHasCategoriesBySubCategoryId() {
-        return subcategoryHasCategoriesBySubCategoryId;
-    }
-
-    public void setSubcategoryHasCategoriesBySubCategoryId(Collection<SubcategoryHasCategory> subcategoryHasCategoriesBySubCategoryId) {
-        this.subcategoryHasCategoriesBySubCategoryId = subcategoryHasCategoriesBySubCategoryId;
-    }
-
-    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
-    public Collection<SubcategoryLanguage> getSubcategoryLanguagesBySubCategoryId() {
-        return subcategoryLanguagesBySubCategoryId;
-    }
-
-    public void setSubcategoryLanguagesBySubCategoryId(Collection<SubcategoryLanguage> subcategoryLanguagesBySubCategoryId) {
-        this.subcategoryLanguagesBySubCategoryId = subcategoryLanguagesBySubCategoryId;
-    }
-
-    @OneToMany(mappedBy = "subcategoryBySubcategoryId")
-    public Collection<VoucherHasSubcategory> getVoucherHasSubcategoriesBySubCategoryId() {
-        return voucherHasSubcategoriesBySubCategoryId;
-    }
-
-    public void setVoucherHasSubcategoriesBySubCategoryId(Collection<VoucherHasSubcategory> voucherHasSubcategoriesBySubCategoryId) {
-        this.voucherHasSubcategoriesBySubCategoryId = voucherHasSubcategoriesBySubCategoryId;
     }
 }

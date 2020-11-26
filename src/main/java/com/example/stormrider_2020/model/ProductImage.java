@@ -3,7 +3,7 @@ package com.example.stormrider_2020.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product_image", schema = "stormrider", catalog = "")
+@Table(name = "product_image", schema = "stormrider_25112020", catalog = "")
 public class ProductImage {
     private int productImageId;
     private String image;

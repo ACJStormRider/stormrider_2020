@@ -1,7 +1,5 @@
 package com.example.stormrider_2020.services;
 
-import com.example.stormrider_2020.model.Category;
-import com.example.stormrider_2020.repository.CartRepository;
 import com.example.stormrider_2020.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,7 @@ import java.util.Optional;
 @Service
 public class CategoryService
 {
-
+/*
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -95,6 +93,8 @@ public class CategoryService
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+ */
 
 
 }
