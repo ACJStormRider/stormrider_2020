@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/addresses")
 public class AddressController{
 
     @Autowired
     AddressRepository addressRepository;
 
 
-    @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAllAddress(@RequestParam(required = false) int addressId){
+    @GetMapping("/addresses")
+    public ResponseEntity<List<Address>> getAllAddress(){
         try {
             List<Address> addresses = new ArrayList<>();
             addresses = addressRepository.findAll();
@@ -37,7 +37,7 @@ public class AddressController{
     }
 
 
-    @GetMapping("/address{id}")
+    @GetMapping("/addresses{id}")
     public ResponseEntity<Address> getAddressById(long id){
         Optional<Address> addressData = addressRepository.findById(id);
         if (addressData.isPresent())
@@ -47,7 +47,7 @@ public class AddressController{
     }
 
 
-    @PostMapping("/address")
+    @PostMapping("/addresses")
     public ResponseEntity<Address> createAddress(@RequestBody Address address){
         try {
             Address address1 = addressRepository.save(address);

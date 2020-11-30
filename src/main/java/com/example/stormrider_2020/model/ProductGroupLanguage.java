@@ -1,15 +1,16 @@
 package com.example.stormrider_2020.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "product_group_language", schema = "stormrider", catalog = "")
+@Table(name = "product_group_language", schema = "stormrider_25112020", catalog = "")
 public class ProductGroupLanguage {
     private int productGroupLanguageId;
+    private String appLanguageCode;
+    private int productGroupId;
     private String productGroupName;
     private String productGroupDescription;
-    private AppLanguage appLanguageByAppLanguageCode;
-    private ProductGroup productGroupByProductGroupId;
 
     @Id
     @Column(name = "product_group_language_id", nullable = false)
@@ -19,6 +20,26 @@ public class ProductGroupLanguage {
 
     public void setProductGroupLanguageId(int productGroupLanguageId) {
         this.productGroupLanguageId = productGroupLanguageId;
+    }
+
+    @Basic
+    @Column(name = "app_language_code", nullable = false, length = 2)
+    public String getAppLanguageCode() {
+        return appLanguageCode;
+    }
+
+    public void setAppLanguageCode(String appLanguageCode) {
+        this.appLanguageCode = appLanguageCode;
+    }
+
+    @Basic
+    @Column(name = "product_group_id", nullable = false)
+    public int getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(int productGroupId) {
+        this.productGroupId = productGroupId;
     }
 
     @Basic
@@ -45,43 +66,16 @@ public class ProductGroupLanguage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductGroupLanguage that = (ProductGroupLanguage) o;
-
-        if (productGroupLanguageId != that.productGroupLanguageId) return false;
-        if (productGroupName != null ? !productGroupName.equals(that.productGroupName) : that.productGroupName != null)
-            return false;
-        if (productGroupDescription != null ? !productGroupDescription.equals(that.productGroupDescription) : that.productGroupDescription != null)
-            return false;
-
-        return true;
+        return productGroupLanguageId == that.productGroupLanguageId &&
+                productGroupId == that.productGroupId &&
+                Objects.equals(appLanguageCode, that.appLanguageCode) &&
+                Objects.equals(productGroupName, that.productGroupName) &&
+                Objects.equals(productGroupDescription, that.productGroupDescription);
     }
 
     @Override
     public int hashCode() {
-        int result = productGroupLanguageId;
-        result = 31 * result + (productGroupName != null ? productGroupName.hashCode() : 0);
-        result = 31 * result + (productGroupDescription != null ? productGroupDescription.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "app_language_code", referencedColumnName = "code", nullable = false)
-    public AppLanguage getAppLanguageByAppLanguageCode() {
-        return appLanguageByAppLanguageCode;
-    }
-
-    public void setAppLanguageByAppLanguageCode(AppLanguage appLanguageByAppLanguageCode) {
-        this.appLanguageByAppLanguageCode = appLanguageByAppLanguageCode;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "product_group_id", referencedColumnName = "product_group_id", nullable = false)
-    public ProductGroup getProductGroupByProductGroupId() {
-        return productGroupByProductGroupId;
-    }
-
-    public void setProductGroupByProductGroupId(ProductGroup productGroupByProductGroupId) {
-        this.productGroupByProductGroupId = productGroupByProductGroupId;
+        return Objects.hash(productGroupLanguageId, appLanguageCode, productGroupId, productGroupName, productGroupDescription);
     }
 }

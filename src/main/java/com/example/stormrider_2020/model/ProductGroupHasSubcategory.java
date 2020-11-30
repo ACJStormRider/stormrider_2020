@@ -1,15 +1,14 @@
 package com.example.stormrider_2020.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "product_group_has_subcategory", schema = "stormrider", catalog = "")
+@Table(name = "product_group_has_subcategory", schema = "stormrider_25112020", catalog = "")
 @IdClass(ProductGroupHasSubcategoryPK.class)
 public class ProductGroupHasSubcategory {
     private int productGroupId;
     private int subcategoryId;
-    private ProductGroup productGroupByProductGroupId;
-    private Subcategory subcategoryBySubcategoryId;
 
     @Id
     @Column(name = "product_group_id", nullable = false)
@@ -35,41 +34,13 @@ public class ProductGroupHasSubcategory {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductGroupHasSubcategory that = (ProductGroupHasSubcategory) o;
-
-        if (productGroupId != that.productGroupId) return false;
-        if (subcategoryId != that.subcategoryId) return false;
-
-        return true;
+        return productGroupId == that.productGroupId &&
+                subcategoryId == that.subcategoryId;
     }
 
     @Override
     public int hashCode() {
-        int result = productGroupId;
-        result = 31 * result + subcategoryId;
-        return result;
-    }
-/*
-    @ManyToOne
-    @JoinColumn(name = "product_group_id", referencedColumnName = "product_group_id", nullable = false)
-    public ProductGroup getProductGroupByProductGroupId() {
-        return productGroupByProductGroupId;
-    }
-*/
-    public void setProductGroupByProductGroupId(ProductGroup productGroupByProductGroupId) {
-        this.productGroupByProductGroupId = productGroupByProductGroupId;
-    }
-/*
-    @ManyToOne
-    @JoinColumn(name = "subcategory_id", referencedColumnName = "sub_category_id", nullable = false)
-    public Subcategory getSubcategoryBySubcategoryId() {
-        return subcategoryBySubcategoryId;
-    }
-
- */
-
-    public void setSubcategoryBySubcategoryId(Subcategory subcategoryBySubcategoryId) {
-        this.subcategoryBySubcategoryId = subcategoryBySubcategoryId;
+        return Objects.hash(productGroupId, subcategoryId);
     }
 }

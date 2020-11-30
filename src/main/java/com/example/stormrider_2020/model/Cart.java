@@ -1,8 +1,11 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 public class Cart {
@@ -11,14 +14,12 @@ public class Cart {
     private double totalPrice;
     private double vat;
     private double totalDiscount;
+    private Integer billingAddressId;
+    private Integer shippingAddressId;
+    private Integer customerId;
     private Date created;
     private Integer voucherId;
     private String trackingNumber;
-    private Address addressByBillingAddressId;
-    private Address addressByShippingAddressId;
-    private Customer customerByCustomerId;
-    private Collection<CartHasProducts> cartHasProductsByCartId;
-    private Collection<Invoice> invoicesByCartId;
 
     @Id
     @Column(name = "cart_id", nullable = false)
@@ -71,6 +72,36 @@ public class Cart {
     }
 
     @Basic
+    @Column(name = "billing_address_id", nullable = true)
+    public Integer getBillingAddressId() {
+        return billingAddressId;
+    }
+
+    public void setBillingAddressId(Integer billingAddressId) {
+        this.billingAddressId = billingAddressId;
+    }
+
+    @Basic
+    @Column(name = "shipping_address_id", nullable = true)
+    public Integer getShippingAddressId() {
+        return shippingAddressId;
+    }
+
+    public void setShippingAddressId(Integer shippingAddressId) {
+        this.shippingAddressId = shippingAddressId;
+    }
+
+    @Basic
+    @Column(name = "customer_id", nullable = true)
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    @Basic
     @Column(name = "created", nullable = true)
     public Date getCreated() {
         return created;
@@ -104,85 +135,22 @@ public class Cart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Cart cart = (Cart) o;
-
-        if (cartId != cart.cartId) return false;
-        if (Double.compare(cart.totalPrice, totalPrice) != 0) return false;
-        if (Double.compare(cart.vat, vat) != 0) return false;
-        if (Double.compare(cart.totalDiscount, totalDiscount) != 0) return false;
-        if (status != null ? !status.equals(cart.status) : cart.status != null) return false;
-        if (created != null ? !created.equals(cart.created) : cart.created != null) return false;
-        if (voucherId != null ? !voucherId.equals(cart.voucherId) : cart.voucherId != null) return false;
-        if (trackingNumber != null ? !trackingNumber.equals(cart.trackingNumber) : cart.trackingNumber != null)
-            return false;
-
-        return true;
+        return cartId == cart.cartId &&
+                Double.compare(cart.totalPrice, totalPrice) == 0 &&
+                Double.compare(cart.vat, vat) == 0 &&
+                Double.compare(cart.totalDiscount, totalDiscount) == 0 &&
+                Objects.equals(status, cart.status) &&
+                Objects.equals(billingAddressId, cart.billingAddressId) &&
+                Objects.equals(shippingAddressId, cart.shippingAddressId) &&
+                Objects.equals(customerId, cart.customerId) &&
+                Objects.equals(created, cart.created) &&
+                Objects.equals(voucherId, cart.voucherId) &&
+                Objects.equals(trackingNumber, cart.trackingNumber);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = cartId;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        temp = Double.doubleToLongBits(totalPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(vat);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(totalDiscount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        result = 31 * result + (voucherId != null ? voucherId.hashCode() : 0);
-        result = 31 * result + (trackingNumber != null ? trackingNumber.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "billing_address_id", referencedColumnName = "address_id")
-    public Address getAddressByBillingAddressId() {
-        return addressByBillingAddressId;
-    }
-
-    public void setAddressByBillingAddressId(Address addressByBillingAddressId) {
-        this.addressByBillingAddressId = addressByBillingAddressId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "shipping_address_id", referencedColumnName = "address_id")
-    public Address getAddressByShippingAddressId() {
-        return addressByShippingAddressId;
-    }
-
-    public void setAddressByShippingAddressId(Address addressByShippingAddressId) {
-        this.addressByShippingAddressId = addressByShippingAddressId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
-    public Customer getCustomerByCustomerId() {
-        return customerByCustomerId;
-    }
-
-    public void setCustomerByCustomerId(Customer customerByCustomerId) {
-        this.customerByCustomerId = customerByCustomerId;
-    }
-
-    @OneToMany(mappedBy = "cartByCartId")
-    public Collection<CartHasProducts> getCartHasProductsByCartId() {
-        return cartHasProductsByCartId;
-    }
-
-    public void setCartHasProductsByCartId(Collection<CartHasProducts> cartHasProductsByCartId) {
-        this.cartHasProductsByCartId = cartHasProductsByCartId;
-    }
-
-    @OneToMany(mappedBy = "cartByCartId")
-    public Collection<Invoice> getInvoicesByCartId() {
-        return invoicesByCartId;
-    }
-
-    public void setInvoicesByCartId(Collection<Invoice> invoicesByCartId) {
-        this.invoicesByCartId = invoicesByCartId;
+        return Objects.hash(cartId, status, totalPrice, vat, totalDiscount, billingAddressId, shippingAddressId, customerId, created, voucherId, trackingNumber);
     }
 }

@@ -3,6 +3,7 @@ package com.example.stormrider_2020.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class VoucherHasProductPK implements Serializable {
     private int voucherId;
@@ -32,19 +33,13 @@ public class VoucherHasProductPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         VoucherHasProductPK that = (VoucherHasProductPK) o;
-
-        if (voucherId != that.voucherId) return false;
-        if (productId != that.productId) return false;
-
-        return true;
+        return voucherId == that.voucherId &&
+                productId == that.productId;
     }
 
     @Override
     public int hashCode() {
-        int result = voucherId;
-        result = 31 * result + productId;
-        return result;
+        return Objects.hash(voucherId, productId);
     }
 }

@@ -3,6 +3,7 @@ package com.example.stormrider_2020.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ProductGroupHasSubcategoryPK implements Serializable {
     private int productGroupId;
@@ -32,19 +33,13 @@ public class ProductGroupHasSubcategoryPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductGroupHasSubcategoryPK that = (ProductGroupHasSubcategoryPK) o;
-
-        if (productGroupId != that.productGroupId) return false;
-        if (subcategoryId != that.subcategoryId) return false;
-
-        return true;
+        return productGroupId == that.productGroupId &&
+                subcategoryId == that.subcategoryId;
     }
 
     @Override
     public int hashCode() {
-        int result = productGroupId;
-        result = 31 * result + subcategoryId;
-        return result;
+        return Objects.hash(productGroupId, subcategoryId);
     }
 }

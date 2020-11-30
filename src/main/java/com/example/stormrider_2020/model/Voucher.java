@@ -1,8 +1,11 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 public class Voucher {
@@ -15,10 +18,6 @@ public class Voucher {
     private byte active;
     private String comment;
     private Double discount;
-    private Collection<VoucherHasCategory> voucherHasCategoriesByVoucherId;
-    private Collection<VoucherHasProduct> voucherHasProductsByVoucherId;
-    private Collection<VoucherHasProductGroup> voucherHasProductGroupsByVoucherId;
-    private Collection<VoucherHasSubcategory> voucherHasSubcategoriesByVoucherId;
 
     @Id
     @Column(name = "voucher_id", nullable = false)
@@ -114,70 +113,20 @@ public class Voucher {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Voucher voucher = (Voucher) o;
-
-        if (voucherId != voucher.voucherId) return false;
-        if (active != voucher.active) return false;
-        if (redeemCode != null ? !redeemCode.equals(voucher.redeemCode) : voucher.redeemCode != null) return false;
-        if (validFrom != null ? !validFrom.equals(voucher.validFrom) : voucher.validFrom != null) return false;
-        if (validUntil != null ? !validUntil.equals(voucher.validUntil) : voucher.validUntil != null) return false;
-        if (timesUsed != null ? !timesUsed.equals(voucher.timesUsed) : voucher.timesUsed != null) return false;
-        if (maxTimesUsed != null ? !maxTimesUsed.equals(voucher.maxTimesUsed) : voucher.maxTimesUsed != null)
-            return false;
-        if (comment != null ? !comment.equals(voucher.comment) : voucher.comment != null) return false;
-        if (discount != null ? !discount.equals(voucher.discount) : voucher.discount != null) return false;
-
-        return true;
+        return voucherId == voucher.voucherId &&
+                active == voucher.active &&
+                Objects.equals(redeemCode, voucher.redeemCode) &&
+                Objects.equals(validFrom, voucher.validFrom) &&
+                Objects.equals(validUntil, voucher.validUntil) &&
+                Objects.equals(timesUsed, voucher.timesUsed) &&
+                Objects.equals(maxTimesUsed, voucher.maxTimesUsed) &&
+                Objects.equals(comment, voucher.comment) &&
+                Objects.equals(discount, voucher.discount);
     }
 
     @Override
     public int hashCode() {
-        int result = voucherId;
-        result = 31 * result + (redeemCode != null ? redeemCode.hashCode() : 0);
-        result = 31 * result + (validFrom != null ? validFrom.hashCode() : 0);
-        result = 31 * result + (validUntil != null ? validUntil.hashCode() : 0);
-        result = 31 * result + (timesUsed != null ? timesUsed.hashCode() : 0);
-        result = 31 * result + (maxTimesUsed != null ? maxTimesUsed.hashCode() : 0);
-        result = 31 * result + (int) active;
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (discount != null ? discount.hashCode() : 0);
-        return result;
-    }
-
-    @OneToMany(mappedBy = "voucherByVoucherId")
-    public Collection<VoucherHasCategory> getVoucherHasCategoriesByVoucherId() {
-        return voucherHasCategoriesByVoucherId;
-    }
-
-    public void setVoucherHasCategoriesByVoucherId(Collection<VoucherHasCategory> voucherHasCategoriesByVoucherId) {
-        this.voucherHasCategoriesByVoucherId = voucherHasCategoriesByVoucherId;
-    }
-
-    @OneToMany(mappedBy = "voucherByVoucherId")
-    public Collection<VoucherHasProduct> getVoucherHasProductsByVoucherId() {
-        return voucherHasProductsByVoucherId;
-    }
-
-    public void setVoucherHasProductsByVoucherId(Collection<VoucherHasProduct> voucherHasProductsByVoucherId) {
-        this.voucherHasProductsByVoucherId = voucherHasProductsByVoucherId;
-    }
-
-    @OneToMany(mappedBy = "voucherByVoucherId")
-    public Collection<VoucherHasProductGroup> getVoucherHasProductGroupsByVoucherId() {
-        return voucherHasProductGroupsByVoucherId;
-    }
-
-    public void setVoucherHasProductGroupsByVoucherId(Collection<VoucherHasProductGroup> voucherHasProductGroupsByVoucherId) {
-        this.voucherHasProductGroupsByVoucherId = voucherHasProductGroupsByVoucherId;
-    }
-
-    @OneToMany(mappedBy = "voucherByVoucherId")
-    public Collection<VoucherHasSubcategory> getVoucherHasSubcategoriesByVoucherId() {
-        return voucherHasSubcategoriesByVoucherId;
-    }
-
-    public void setVoucherHasSubcategoriesByVoucherId(Collection<VoucherHasSubcategory> voucherHasSubcategoriesByVoucherId) {
-        this.voucherHasSubcategoriesByVoucherId = voucherHasSubcategoriesByVoucherId;
+        return Objects.hash(voucherId, redeemCode, validFrom, validUntil, timesUsed, maxTimesUsed, active, comment, discount);
     }
 }

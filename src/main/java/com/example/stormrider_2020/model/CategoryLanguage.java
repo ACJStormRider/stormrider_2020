@@ -1,14 +1,15 @@
 package com.example.stormrider_2020.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "category_language", schema = "stormrider", catalog = "")
+@Table(name = "category_language", schema = "stormrider_25112020", catalog = "")
 public class CategoryLanguage {
     private int categoryLanguageId;
+    private String appLanguageCode;
+    private int categoryId;
     private String name;
-    private AppLanguage appLanguageByAppLanguageCode;
-    private Category categoryByCategoryId;
 
     @Id
     @Column(name = "category_language_id", nullable = false)
@@ -18,6 +19,26 @@ public class CategoryLanguage {
 
     public void setCategoryLanguageId(int categoryLanguageId) {
         this.categoryLanguageId = categoryLanguageId;
+    }
+
+    @Basic
+    @Column(name = "app_language_code", nullable = false, length = 2)
+    public String getAppLanguageCode() {
+        return appLanguageCode;
+    }
+
+    public void setAppLanguageCode(String appLanguageCode) {
+        this.appLanguageCode = appLanguageCode;
+    }
+
+    @Basic
+    @Column(name = "category_id", nullable = false)
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Basic
@@ -34,39 +55,15 @@ public class CategoryLanguage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CategoryLanguage that = (CategoryLanguage) o;
-
-        if (categoryLanguageId != that.categoryLanguageId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-        return true;
+        return categoryLanguageId == that.categoryLanguageId &&
+                categoryId == that.categoryId &&
+                Objects.equals(appLanguageCode, that.appLanguageCode) &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = categoryLanguageId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "app_language_code", referencedColumnName = "code", nullable = false)
-    public AppLanguage getAppLanguageByAppLanguageCode() {
-        return appLanguageByAppLanguageCode;
-    }
-
-    public void setAppLanguageByAppLanguageCode(AppLanguage appLanguageByAppLanguageCode) {
-        this.appLanguageByAppLanguageCode = appLanguageByAppLanguageCode;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
-    public Category getCategoryByCategoryId() {
-        return categoryByCategoryId;
-    }
-
-    public void setCategoryByCategoryId(Category categoryByCategoryId) {
-        this.categoryByCategoryId = categoryByCategoryId;
+        return Objects.hash(categoryLanguageId, appLanguageCode, categoryId, name);
     }
 }

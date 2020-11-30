@@ -2,12 +2,14 @@ package com.example.stormrider_2020.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "product_order", schema = "stormrider", catalog = "")
+@Table(name = "product_order", schema = "stormrider_25112020", catalog = "")
 public class ProductOrder {
     private int orderId;
     private String status;
+    private int productId;
     private Double costUnit;
     private Integer unitAmount;
     private Double taxPercentage;
@@ -16,7 +18,6 @@ public class ProductOrder {
     private Date etaDate;
     private String comment;
     private String trackingNumber;
-    private Product productByProductId;
 
     @Id
     @Column(name = "order_id", nullable = false)
@@ -36,6 +37,16 @@ public class ProductOrder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Basic
+    @Column(name = "product_id", nullable = false)
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     @Basic
@@ -122,47 +133,22 @@ public class ProductOrder {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductOrder that = (ProductOrder) o;
-
-        if (orderId != that.orderId) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        if (costUnit != null ? !costUnit.equals(that.costUnit) : that.costUnit != null) return false;
-        if (unitAmount != null ? !unitAmount.equals(that.unitAmount) : that.unitAmount != null) return false;
-        if (taxPercentage != null ? !taxPercentage.equals(that.taxPercentage) : that.taxPercentage != null)
-            return false;
-        if (shippingCost != null ? !shippingCost.equals(that.shippingCost) : that.shippingCost != null) return false;
-        if (orderDate != null ? !orderDate.equals(that.orderDate) : that.orderDate != null) return false;
-        if (etaDate != null ? !etaDate.equals(that.etaDate) : that.etaDate != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-        if (trackingNumber != null ? !trackingNumber.equals(that.trackingNumber) : that.trackingNumber != null)
-            return false;
-
-        return true;
+        return orderId == that.orderId &&
+                productId == that.productId &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(costUnit, that.costUnit) &&
+                Objects.equals(unitAmount, that.unitAmount) &&
+                Objects.equals(taxPercentage, that.taxPercentage) &&
+                Objects.equals(shippingCost, that.shippingCost) &&
+                Objects.equals(orderDate, that.orderDate) &&
+                Objects.equals(etaDate, that.etaDate) &&
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(trackingNumber, that.trackingNumber);
     }
 
     @Override
     public int hashCode() {
-        int result = orderId;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (costUnit != null ? costUnit.hashCode() : 0);
-        result = 31 * result + (unitAmount != null ? unitAmount.hashCode() : 0);
-        result = 31 * result + (taxPercentage != null ? taxPercentage.hashCode() : 0);
-        result = 31 * result + (shippingCost != null ? shippingCost.hashCode() : 0);
-        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
-        result = 31 * result + (etaDate != null ? etaDate.hashCode() : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (trackingNumber != null ? trackingNumber.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
-    public Product getProductByProductId() {
-        return productByProductId;
-    }
-
-    public void setProductByProductId(Product productByProductId) {
-        this.productByProductId = productByProductId;
+        return Objects.hash(orderId, status, productId, costUnit, unitAmount, taxPercentage, shippingCost, orderDate, etaDate, comment, trackingNumber);
     }
 }

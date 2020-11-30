@@ -1,12 +1,16 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Receipt {
     private int receiptId;
     private String receiptInfo;
-    private Invoice invoiceByInvoiceId;
+    private int invoiceId;
 
     @Id
     @Column(name = "receipt_id", nullable = false)
@@ -28,33 +32,28 @@ public class Receipt {
         this.receiptInfo = receiptInfo;
     }
 
+    @Basic
+    @Column(name = "invoice_id", nullable = false)
+    public int getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(int invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Receipt receipt = (Receipt) o;
-
-        if (receiptId != receipt.receiptId) return false;
-        if (receiptInfo != null ? !receiptInfo.equals(receipt.receiptInfo) : receipt.receiptInfo != null) return false;
-
-        return true;
+        return receiptId == receipt.receiptId &&
+                invoiceId == receipt.invoiceId &&
+                Objects.equals(receiptInfo, receipt.receiptInfo);
     }
 
     @Override
     public int hashCode() {
-        int result = receiptId;
-        result = 31 * result + (receiptInfo != null ? receiptInfo.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false)
-    public Invoice getInvoiceByInvoiceId() {
-        return invoiceByInvoiceId;
-    }
-
-    public void setInvoiceByInvoiceId(Invoice invoiceByInvoiceId) {
-        this.invoiceByInvoiceId = invoiceByInvoiceId;
+        return Objects.hash(receiptId, receiptInfo, invoiceId);
     }
 }

@@ -70,9 +70,9 @@ public class CartController
             cart1.setCreated(cart.getCreated());
             cart1.setVoucherId(cart.getVoucherId());
             cart1.setTrackingNumber(cart.getTrackingNumber());
-            cart1.setAddressByBillingAddressId(cart.getAddressByBillingAddressId());
-            cart1.setAddressByShippingAddressId(cart.getAddressByShippingAddressId());
-            cart1.setCustomerByCustomerId(cart.getCustomerByCustomerId());
+            //cart1.setAddressByBillingAddressId(cart.getAddressByBillingAddressId());
+            //cart1.setAddressByShippingAddressId(cart.getAddressByShippingAddressId());
+            //cart1.setCustomerByCustomerId(cart.getCustomerByCustomerId());
             return new ResponseEntity<>(cartRepository.save(cart1), HttpStatus.OK);
         } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

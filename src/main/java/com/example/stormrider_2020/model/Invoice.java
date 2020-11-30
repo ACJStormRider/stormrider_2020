@@ -1,18 +1,20 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 public class Invoice {
     private int invoiceId;
     private Date date;
+    private int cartId;
     private String status;
     private String paymentMethod;
     private byte paid;
-    private Cart cartByCartId;
-    private Collection<Receipt> receiptsByInvoiceId;
 
     @Id
     @Column(name = "invoice_id", nullable = false)
@@ -32,6 +34,16 @@ public class Invoice {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Basic
+    @Column(name = "cart_id", nullable = false)
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
     }
 
     @Basic
@@ -68,45 +80,17 @@ public class Invoice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Invoice invoice = (Invoice) o;
-
-        if (invoiceId != invoice.invoiceId) return false;
-        if (paid != invoice.paid) return false;
-        if (date != null ? !date.equals(invoice.date) : invoice.date != null) return false;
-        if (status != null ? !status.equals(invoice.status) : invoice.status != null) return false;
-        if (paymentMethod != null ? !paymentMethod.equals(invoice.paymentMethod) : invoice.paymentMethod != null)
-            return false;
-
-        return true;
+        return invoiceId == invoice.invoiceId &&
+                cartId == invoice.cartId &&
+                paid == invoice.paid &&
+                Objects.equals(date, invoice.date) &&
+                Objects.equals(status, invoice.status) &&
+                Objects.equals(paymentMethod, invoice.paymentMethod);
     }
 
     @Override
     public int hashCode() {
-        int result = invoiceId;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
-        result = 31 * result + (int) paid;
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id", nullable = false)
-    public Cart getCartByCartId() {
-        return cartByCartId;
-    }
-
-    public void setCartByCartId(Cart cartByCartId) {
-        this.cartByCartId = cartByCartId;
-    }
-
-    @OneToMany(mappedBy = "invoiceByInvoiceId")
-    public Collection<Receipt> getReceiptsByInvoiceId() {
-        return receiptsByInvoiceId;
-    }
-
-    public void setReceiptsByInvoiceId(Collection<Receipt> receiptsByInvoiceId) {
-        this.receiptsByInvoiceId = receiptsByInvoiceId;
+        return Objects.hash(invoiceId, date, cartId, status, paymentMethod, paid);
     }
 }
