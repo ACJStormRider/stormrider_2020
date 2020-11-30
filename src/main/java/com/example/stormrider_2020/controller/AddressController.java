@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("/api")
 public class AddressController{
 
     @Autowired
@@ -37,7 +37,7 @@ public class AddressController{
     }
 
 
-    @GetMapping("/addresses{id}")
+    @GetMapping("/address{id}")
     public ResponseEntity<Address> getAddressById(long id){
         Optional<Address> addressData = addressRepository.findById(id);
         if (addressData.isPresent())
