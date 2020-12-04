@@ -1,12 +1,24 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+//import logo from './public/images/logo/nameOfTheLogo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>STORM RIDER</h1>
-    </div>
-  );
+import Navbar from './components/Navbar';
+
+
+
+class App extends Component {
+    render() {
+        return (
+            <React.Fragment>
+                <Navbar />
+                <Switch>
+                    <Route exact path="/" component={ProductList}></Route>
+                    <Route component={Default}></Route>
+                </Switch>
+            </React.Fragment>
+        );
+    }
 }
+
 
 export default App;
