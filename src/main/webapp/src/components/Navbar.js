@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
+import logo from '../images/logo/dummyLogo.png';
 
 
 export default class Navbar extends Component {
     render() {
         return (
-                <ul>
-                    <li>
-                        <h1>Products</h1>
-                        <h1>About Us</h1>
-                    </li>
-                </ul>
+            <div>
+                <img src={logo} alt="Logo" />;
+            </div>
         )
     }
 }
-

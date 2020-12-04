@@ -3,6 +3,45 @@
     used in the website purely for frontend testing purposes
 */
 
+import React, { Component } from 'react';
+
+
+class DummyData extends Component {
+
+    state = {
+        product: [
+            {
+                productId: 1,
+                inventory: 10,
+                productGroupId: 1,
+                lastUpdated: "2020-12-04"
+            },
+            {
+                productId: 2,
+                inventory: 7,
+                productGroupId: 2,
+                lastUpdated: "2020-11-10"
+            },
+            {
+                productId: 3,
+                inventory: 15,
+                productGroupId: 3,
+                lastUpdated: "2020-12-03"
+            },
+            {
+                productId: 4,
+                inventory: 20,
+                productGroupId: 4,
+                lastUpdated: "2020-11-22"
+            }
+        ]
+    }
+}
+
+
+
+
+/*
 export const product = [
     {
         productId: 1,
@@ -196,4 +235,35 @@ export const categoryLanguage = [
         categoryId: 2,
         name: "Accessories"
     }
-]
+];
+
+// ==================================================================================================================
+
+export const productImage = [
+    {
+        productImageId: 1,
+        productGroupId: 1,
+        image: "./tempImages/Saddle.jpg",
+        name: "Saddle"
+    },
+    {
+        productImageId: 2,
+        productGroupId: 2,
+        image: "./tempImages/Noseband.jpg",
+        name: "Noseband"
+    },
+    {
+        productImageId: 3,
+        productGroupId: 3,
+        image: "./tempImages/Horseshoe.jpg",
+        name: "Horseshoe"
+    },
+    {
+        productImageId: 4,
+        productGroupId: 4,
+        image: "./tempImages/Other.jpg",
+        name: "Other"
+    }
+];
+
+ */
