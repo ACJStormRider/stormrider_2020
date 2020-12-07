@@ -32,7 +32,7 @@ public class ProductService {
     public List<Product> getProductGroupById2(int id) {
         try{
             List<Product> products = productRepository.findByProductGroupId(id);
-            List
+
             return products;
         } catch (Exception e) {
             return null;
