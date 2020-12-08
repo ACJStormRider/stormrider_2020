@@ -2,8 +2,6 @@ package com.example.stormrider_2020.controller;
 
 
 import com.example.stormrider_2020.model.Product;
-import com.example.stormrider_2020.model.Variable;
-import com.example.stormrider_2020.repository.ProductRepository;
 import com.example.stormrider_2020.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class ProductController {
 
+    /*
     @Autowired
     ProductService productService;
 
@@ -38,6 +35,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/productgroup2/{id}")
     public ResponseEntity<List<Product>> getProductGroupById2(@PathVariable("id") int id) {
         // List<Product> products = new ArrayList<>();
@@ -52,6 +50,9 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+     */
 
     // Now need to add to it, get the variables as well.
 
