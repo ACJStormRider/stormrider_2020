@@ -54,18 +54,18 @@ class ProductList extends React.Component {
                     (category.categoryId == this.getCategoryId()) ?
                     <span>
                     {
-                        category.subcategory.map((subcategory) =>
+                        category.subcategories.map((subcategory) =>
                         <span>
                         {
-                            subcategory.productGroup.map((productGroup) =>
+                            subcategory.productGroups.map((productGroup) =>
                                 <Card style={{width: '18rem'}}>
                                     <Card.Img variant="top" src={product}/>
                                     <Card.Body>
                                         {
-                                            productGroup.productGroupLanguage.map((productGroupLanguage) =>
+                                            productGroup.productGroupLanguages.map((productGroupLanguage) =>
                                         <span>
                                         {
-                                            (productGroupLanguage.appLanguage == this.getLanguage()) ?
+                                            (productGroupLanguage.appLanguageCode == this.getLanguage()) ?
                                                 <div>
                                                     <Card.Text className="card-title">{productGroupLanguage.productGroupName}</Card.Text>
                                                     <Card.Text className="card-description">{productGroupLanguage.productGroupDescription}</Card.Text>

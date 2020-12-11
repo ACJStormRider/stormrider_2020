@@ -9,7 +9,7 @@ import axios from "axios";
 //  DECLARATION OF GLOBAL LANGUAGE VARIABLE
 //============================================
 
-var language = 'EN';
+var language = 'en';
 
 
 
@@ -40,10 +40,10 @@ class NavBar extends React.Component {
 
     renderAboutUs(language) {
         switch(language) {
-            case 'EN':
+            case 'en':
                 return 'About Us';
                 break;
-            case 'IS':
+            case 'is':
                 return 'Um Okkur';
                 break;
             default:
@@ -66,10 +66,10 @@ class NavBar extends React.Component {
                     this.state.categories.map((category) =>
                     <span>
                     {
-                        (typeof(category.categoryLanguage) == 'object') ?
+                        (typeof(category.categoryLanguages) == 'object') ?
                         <span>
                         {
-                            category.categoryLanguage.map((categoryLanguage) =>
+                            category.categoryLanguages.map((categoryLanguage) =>
                             <span>
                             {
                                 (categoryLanguage.appLanguageCode === language) ?

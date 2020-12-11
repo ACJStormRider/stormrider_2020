@@ -1,15 +1,15 @@
-package com.example.stormrider_2020.model;
+package com.example.stormrider_2020.model.Subcategory;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "category_language", schema = "stormrider", catalog = "")
-public class CategoryLanguage {
+@Table(name = "subcategory_language", schema = "stormrider", catalog = "")
+public class SubcategoryLanguage {
 
-    private int categoryLanguageId;
+    private int subcategoryLanguageId;
     private String appLanguageCode;
-    private int categoryId;
+    private int subcategoryId;
     private String name;
 
 //==============================================================================================
@@ -17,12 +17,12 @@ public class CategoryLanguage {
 //==============================================================================================
 
     @Id
-    @Column(name = "category_language_id", nullable = false)
-    public int getCategoryLanguageId() {
-        return categoryLanguageId;
+    @Column(name = "subcategory_language_id", nullable = false)
+    public int getSubcategoryLanguageId() {
+        return subcategoryLanguageId;
     }
-    public void setCategoryLanguageId(int categoryLanguageId) {
-        this.categoryLanguageId = categoryLanguageId;
+    public void setSubcategoryLanguageId(int subcategoryLanguageId) {
+        this.subcategoryLanguageId = subcategoryLanguageId;
     }
 
     @Basic
@@ -35,12 +35,12 @@ public class CategoryLanguage {
     }
 
     @Basic
-    @Column(name = "category_id", nullable = false)
-    public int getCategoryId() {
-        return categoryId;
+    @Column(name = "subcategory_id", nullable = false)
+    public int getSubcategoryId() {
+        return subcategoryId;
     }
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setSubcategoryId(int subcategoryId) {
+        this.subcategoryId = subcategoryId;
     }
 
     @Basic
@@ -57,17 +57,12 @@ public class CategoryLanguage {
 //==============================================================================================
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CategoryLanguage that = (CategoryLanguage) o;
-        return categoryLanguageId == that.categoryLanguageId &&
-                Objects.equals(name, that.name);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryLanguageId, name);
+        return super.hashCode();
     }
-
 }

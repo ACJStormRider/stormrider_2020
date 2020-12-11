@@ -1,7 +1,8 @@
-package com.example.stormrider_2020.model;
+package com.example.stormrider_2020.model.ProductGroup;
+
+import com.example.stormrider_2020.model.Product.Product;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,8 +12,8 @@ public class ProductGroup {
     private int productGroupId;
     private double basePrice;
     private double vat;
-    Set<ProductGroupLanguage> productGroupLanguage;
-    Set<Product> products;
+    Set<ProductGroupLanguage> productGroupLanguages;
+    //Set<Product> products;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -46,6 +47,15 @@ public class ProductGroup {
     }
 
     @OneToMany(mappedBy="productGroupId")
+    public Set<ProductGroupLanguage> getProductGroupLanguages() {
+        return productGroupLanguages;
+    }
+    public void setProductGroupLanguages(Set<ProductGroupLanguage> productGroupLanguages) {
+        this.productGroupLanguages = productGroupLanguages;
+    }
+
+    /*
+    @OneToMany(mappedBy="productGroupId")
     public Set<Product> getProducts() {
         return products;
     }
@@ -53,31 +63,19 @@ public class ProductGroup {
         this.products = products;
     }
 
-    @OneToMany(mappedBy="productGroupId")
-    public Set<ProductGroupLanguage> getProductGroupLanguage() {
-        return productGroupLanguage;
-    }
-    public void setProductGroupLanguage(Set<ProductGroupLanguage> productGroupLanguage) {
-        this.productGroupLanguage = productGroupLanguage;
-    }
+     */
 
 //==============================================================================================
 //  METHODS
 //==============================================================================================
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductGroup that = (ProductGroup) o;
-        return productGroupId == that.productGroupId &&
-                Double.compare(that.basePrice, basePrice) == 0 &&
-                Double.compare(that.vat, vat) == 0;
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productGroupId, basePrice, vat);
+        return super.hashCode();
     }
-
 }

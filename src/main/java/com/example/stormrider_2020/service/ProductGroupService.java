@@ -1,9 +1,7 @@
 package com.example.stormrider_2020.service;
 
 
-import com.example.stormrider_2020.model.Category;
-import com.example.stormrider_2020.model.ProductGroup;
-import com.example.stormrider_2020.repository.CategoryRepository;
+import com.example.stormrider_2020.model.ProductGroup.ProductGroup;
 import com.example.stormrider_2020.repository.ProductGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

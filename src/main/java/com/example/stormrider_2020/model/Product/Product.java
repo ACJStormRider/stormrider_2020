@@ -1,21 +1,20 @@
-package com.example.stormrider_2020.model;
+package com.example.stormrider_2020.model.Product;
+
+import com.example.stormrider_2020.model.Variable.Variable;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "product", schema = "stormrider", catalog = "")
 public class Product {
 
     private int productId;
     private short inventory;
     private int productGroupId;
-    Set<GenderLanguage> gender;
-    Set<FillingLanguage> filling;
-    Set<ColorLanguage> color;
-    Set<SizeLanguage> size;
     private Date lastUpdated;
+    private Set<Variable> variables;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -48,38 +47,6 @@ public class Product {
         this.productGroupId = productGroupId;
     }
 
-    @OneToMany(mappedBy="genderId")
-    public Set<GenderLanguage> getGender() {
-        return gender;
-    }
-    public void setGender(Set<GenderLanguage> gender) {
-        this.gender = gender;
-    }
-
-    @OneToMany(mappedBy="fillingId")
-    public Set<FillingLanguage> getFilling() {
-        return filling;
-    }
-    public void setFilling(Set<FillingLanguage> filling) {
-        this.filling = filling;
-    }
-
-    @OneToMany(mappedBy="colorId")
-    public Set<ColorLanguage> getColor() {
-        return color;
-    }
-    public void setColor(Set<ColorLanguage> color) {
-        this.color = color;
-    }
-
-    @OneToMany(mappedBy="sizeId")
-    public Set<SizeLanguage> getSize() {
-        return size;
-    }
-    public void setSize(Set<SizeLanguage> size) {
-        this.size = size;
-    }
-
     @Basic
     @Column(name = "last_updated", nullable = false)
     public Date getLastUpdated() {
@@ -89,18 +56,25 @@ public class Product {
         this.lastUpdated = lastUpdated;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name = "product_has_variable",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "variable_id"))
+    public Set<Variable> getVariables() {
+        return variables;
+    }
+    public void setVariables(Set<Variable> variables) {
+        this.variables = variables;
+    }
+
 //==============================================================================================
 //  METHODS
 //==============================================================================================
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return productId == product.productId &&
-                inventory == product.inventory &&
-                Objects.equals(lastUpdated, product.lastUpdated);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override

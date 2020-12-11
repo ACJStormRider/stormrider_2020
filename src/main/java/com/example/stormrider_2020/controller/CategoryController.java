@@ -1,7 +1,7 @@
 package com.example.stormrider_2020.controller;
 
 
-import com.example.stormrider_2020.model.Category;
+import com.example.stormrider_2020.model.Category.Category;
 import com.example.stormrider_2020.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +28,6 @@ public class CategoryController {
     public ResponseEntity<Category> getCategoryById (@PathVariable("id") int id) {
         return categoryService.getById(id);
     }
+
 
 }

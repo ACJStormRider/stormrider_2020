@@ -1,7 +1,5 @@
 -- MySQL Workbench Forward Engineering
 
-use stormrider_25112020;
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -9,6 +7,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema stormrider
 -- -----------------------------------------------------
+
+DROP SCHEMA IF EXISTS stormrider;
+CREATE SCHEMA `stormrider` DEFAULT CHARACTER SET utf8 ;
+USE stormrider;
 
 -- -----------------------------------------------------
 -- Table `customer`
@@ -136,8 +138,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `subcategory` ;
 
 CREATE TABLE IF NOT EXISTS `subcategory` (
-  `sub_category_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table',
-  PRIMARY KEY (`sub_category_id`))
+  `subcategory_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table',
+  PRIMARY KEY (`subcategory_id`))
 ENGINE = InnoDB;
 
 
@@ -259,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `subcategory_language` (
   PRIMARY KEY (`category_language_id`),
   CONSTRAINT `subcategory_language_subcategory_id`
     FOREIGN KEY (`subcategory_id`)
-    REFERENCES `subcategory` (`sub_category_id`)
+    REFERENCES `subcategory` (`subcategory_id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `subcategory_language_app_language_code`
@@ -339,32 +341,9 @@ CREATE TABLE IF NOT EXISTS `voucher` (
   `active` TINYINT(1) NOT NULL COMMENT 'Identifies whether the voucher is active\n\ne.g. true - active; false - not active',
   `comment` VARCHAR(255) NULL COMMENT 'Any additional comments (if any)\n\ne.g.',
   `discount` DOUBLE NULL COMMENT 'Discount of the voucher (in percentage)\n\ne.g. 25',
+  `needs_code` TINYINT(1) NOT NULL,
   PRIMARY KEY (`voucher_id`))
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `voucher_has_product`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `voucher_has_product` ;
-
-CREATE TABLE IF NOT EXISTS `voucher_has_product` (
-  `voucher_id` INT NOT NULL COMMENT 'Identifies the voucher ID from the voucher table (multiple rows with the same voucher ID identifies multiple products to whom it applies to)\n\nWorks as a foreign key on:\nvoucher_has_product.voucher_id = voucher.voucher_id\n\ne.g. 1, 2, 3',
-  `product_id` INT NOT NULL COMMENT 'Identifies the product ID to which the voucher applies to (multiple rows with the same voucher ID identifies multiple products to whom it applies to)\n\nWorks as a foreign key on:\nvoucher_has_product.product_id = product.product_id\n\ne.g. 1, 2, 3',
-  PRIMARY KEY (`voucher_id`, `product_id`),
-  CONSTRAINT `voucher_has_product_voucher_pro_id`
-    FOREIGN KEY (`voucher_id`)
-    REFERENCES `voucher` (`voucher_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `voucher_has_product_product_vou_id`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `product` (`product_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_product_vou_id_idx` ON `voucher_has_product` (`product_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -426,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `subcategory_has_category` (
   PRIMARY KEY (`subcategory_id`, `category_id`),
   CONSTRAINT `subcategory_has_category_subcategory_has_category_subcategory_id`
     FOREIGN KEY (`subcategory_id`)
-    REFERENCES `subcategory` (`sub_category_id`)
+    REFERENCES `subcategory` (`subcategory_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `subcategory_has_category_subcategory_has_category_category_id`
@@ -455,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `product_group_has_subcategory` (
     ON UPDATE NO ACTION,
   CONSTRAINT `product_group_has_subcategory_subcategory_id`
     FOREIGN KEY (`subcategory_id`)
-    REFERENCES `subcategory` (`sub_category_id`)
+    REFERENCES `subcategory` (`subcategory_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -494,17 +473,17 @@ CREATE INDEX `variable_type_id_idx` ON `variable` (`variable_type_id` ASC) VISIB
 
 
 -- -----------------------------------------------------
--- Table `product_variable_language`
+-- Table `variable_language`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `product_variable_language` ;
+DROP TABLE IF EXISTS `variable_language` ;
 
-CREATE TABLE IF NOT EXISTS `product_variable_language` (
-  `product_variable_language_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `variable_language` (
+  `variable_language_id` INT NOT NULL AUTO_INCREMENT,
   `app_language_code` CHAR(2) NOT NULL,
   `variable_name` VARCHAR(45) NOT NULL,
   `variable_comment` VARCHAR(45) NULL,
   `variable_id` INT NOT NULL,
-  PRIMARY KEY (`product_variable_language_id`),
+  PRIMARY KEY (`variable_language_id`),
   CONSTRAINT `product_variable_lang_app_lang_id`
     FOREIGN KEY (`app_language_code`)
     REFERENCES `app_language` (`code`)
@@ -517,9 +496,9 @@ CREATE TABLE IF NOT EXISTS `product_variable_language` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `product_variable_lang_app_lang_id_idx` ON `product_variable_language` (`app_language_code` ASC) VISIBLE;
+CREATE INDEX `product_variable_lang_app_lang_id_idx` ON `variable_language` (`app_language_code` ASC) VISIBLE;
 
-CREATE INDEX `variable_id_idx` ON `product_variable_language` (`variable_id` ASC) VISIBLE;
+CREATE INDEX `variable_id_idx` ON `variable_language` (`variable_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -557,10 +536,9 @@ CREATE INDEX `variable_type_id_idx` ON `variable_type_language` (`variable_type_
 DROP TABLE IF EXISTS `product_has_variable` ;
 
 CREATE TABLE IF NOT EXISTS `product_has_variable` (
-  `product_has_variable_id` INT NOT NULL AUTO_INCREMENT,
   `product_id` INT NOT NULL,
   `variable_id` INT NOT NULL,
-  PRIMARY KEY (`product_has_variable_id`),
+  PRIMARY KEY (`product_id`, `variable_id`),
   CONSTRAINT `product_variable_product_id`
     FOREIGN KEY (`product_id`)
     REFERENCES `product` (`product_id`)
@@ -576,6 +554,57 @@ ENGINE = InnoDB;
 CREATE INDEX `product_variable_product_id_idx` ON `product_has_variable` (`product_id` ASC) VISIBLE;
 
 CREATE INDEX `product_variable_variable_id_idx` ON `product_has_variable` (`variable_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `voucher_has_group`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `voucher_has_group` ;
+
+CREATE TABLE IF NOT EXISTS `voucher_has_group` (
+  `voucher_group_id` INT NOT NULL,
+  `product_id` INT NULL,
+  `product_group_id` INT NULL,
+  `subcategory_id` INT NULL,
+  `category_id` INT NULL,
+  `voucher_id` INT NOT NULL,
+  PRIMARY KEY (`voucher_group_id`),
+  CONSTRAINT `voucher_product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `product` (`product_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `voucher_product_group_id`
+    FOREIGN KEY (`product_group_id`)
+    REFERENCES `product_group` (`product_group_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `voucher_subcategory_id`
+    FOREIGN KEY (`subcategory_id`)
+    REFERENCES `subcategory` (`subcategory_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `voucher_category_id`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `category` (`category_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `voucher_group_voucher_id`
+    FOREIGN KEY (`voucher_id`)
+    REFERENCES `voucher` (`voucher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `voucher_product_id_idx` ON `voucher_has_group` (`product_id` ASC) VISIBLE;
+
+CREATE INDEX `voucher_product_group_id_idx` ON `voucher_has_group` (`product_group_id` ASC) VISIBLE;
+
+CREATE INDEX `voucher_subcategory_id_idx` ON `voucher_has_group` (`subcategory_id` ASC) VISIBLE;
+
+CREATE INDEX `voucher_category_id_idx` ON `voucher_has_group` (`category_id` ASC) VISIBLE;
+
+CREATE INDEX `voucher_group_voucher_id_idx` ON `voucher_has_group` (`voucher_id` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

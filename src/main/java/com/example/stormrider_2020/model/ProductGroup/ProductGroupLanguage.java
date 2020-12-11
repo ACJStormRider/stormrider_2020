@@ -1,4 +1,4 @@
-package com.example.stormrider_2020.model;
+package com.example.stormrider_2020.model.ProductGroup;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 public class ProductGroupLanguage {
 
     private int productGroupLanguageId;
-    private String appLanguage;
+    private String appLanguageCode;
     private int productGroupId;
     private String productGroupName;
     private String productGroupDescription;
@@ -28,11 +28,11 @@ public class ProductGroupLanguage {
 
     @Basic
     @Column(name = "app_language_code", nullable = false, length = 2)
-    public String getAppLanguage() {
-        return appLanguage;
+    public String getAppLanguageCode() {
+        return appLanguageCode;
     }
-    public void setAppLanguage(String appLanguage) {
-        this.appLanguage = appLanguage;
+    public void setAppLanguageCode(String appLanguageCode) {
+        this.appLanguageCode = appLanguageCode;
     }
 
     @Basic
@@ -67,18 +67,12 @@ public class ProductGroupLanguage {
 //==============================================================================================
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductGroupLanguage that = (ProductGroupLanguage) o;
-        return productGroupLanguageId == that.productGroupLanguageId &&
-                Objects.equals(productGroupName, that.productGroupName) &&
-                Objects.equals(productGroupDescription, that.productGroupDescription);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productGroupLanguageId, productGroupName, productGroupDescription);
+        return super.hashCode();
     }
-
 }

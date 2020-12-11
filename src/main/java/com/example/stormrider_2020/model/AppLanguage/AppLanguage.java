@@ -1,4 +1,4 @@
-package com.example.stormrider_2020.model;
+package com.example.stormrider_2020.model.AppLanguage;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -37,16 +37,12 @@ public class AppLanguage {
 //==============================================================================================
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AppLanguage that = (AppLanguage) o;
-        return Objects.equals(code, that.code) &&
-                Objects.equals(language, that.language);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, language);
+        return super.hashCode();
     }
 }
