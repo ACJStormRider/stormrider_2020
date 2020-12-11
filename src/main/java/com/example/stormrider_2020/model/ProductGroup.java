@@ -79,4 +79,5 @@ public class ProductGroup {
     public int hashCode() {
         return Objects.hash(productGroupId, basePrice, vat);
     }
+
 }

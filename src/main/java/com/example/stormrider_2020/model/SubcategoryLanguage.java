@@ -21,7 +21,7 @@ public class SubcategoryLanguage {
     public int getSubcategoryLanguageId() {
         return subcategoryLanguageId;
     }
-    public void setSubcategoryLanguageId(int categoryLanguageId) {
+    public void setSubcategoryLanguageId(int subcategoryLanguageId) {
         this.subcategoryLanguageId = subcategoryLanguageId;
     }
 
