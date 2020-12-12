@@ -11,8 +11,9 @@ import java.util.Set;
 public class Subcategory {
 
     private int subcategoryId;
-    Set<SubcategoryLanguage> subcategoryLanguages;
-    Set<ProductGroup> productGroups;
+    private Set<SubcategoryLanguage> subcategoryLanguages;
+    private Set<Long> categoryIds;
+    private Set<Long> productGroupIds;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -35,16 +36,24 @@ public class Subcategory {
         this.subcategoryLanguages = subcategoryLanguages;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_group_has_subcategory",
-            joinColumns = @JoinColumn(name = "subcategory_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_group_id"))
-    public Set<ProductGroup> getProductGroups() {
-        return productGroups;
+    @ElementCollection
+    @CollectionTable(name="subcategory_has_category", joinColumns=@JoinColumn(name="subcategory_id"))
+    @Column(name="category_id")
+    public Set<Long> getCategoryIds() {
+        return categoryIds;
     }
-    public void setProductGroups(Set<ProductGroup> productGroups) {
-        this.productGroups = productGroups;
+    public void setCategoryIds(Set<Long> categoryIds) {
+        this.categoryIds = categoryIds;
+    }
+
+    @ElementCollection
+    @CollectionTable(name="product_group_has_subcategory", joinColumns=@JoinColumn(name="subcategory_id"))
+    @Column(name="product_group_id")
+    public Set<Long> getProductGroupIds() {
+        return productGroupIds;
+    }
+    public void setProductGroupIds(Set<Long> productGroupIds) {
+        this.productGroupIds = productGroupIds;
     }
 
 //==============================================================================================

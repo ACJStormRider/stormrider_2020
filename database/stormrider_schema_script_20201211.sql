@@ -275,11 +275,11 @@ CREATE INDEX `fk_app_language_code_idx` ON `category_language` (`app_language_co
 DROP TABLE IF EXISTS `subcategory_language` ;
 
 CREATE TABLE IF NOT EXISTS `subcategory_language` (
-  `category_language_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table',
+  `subcategory_language_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table',
   `app_language_code` CHAR(2) NOT NULL COMMENT 'Identifies the language code from the app_language table\n\nWorks as a foreign key on:\nsubcategory_language.app_language_code = app_language.code\n\ne.g. EN, IS',
   `subcategory_id` INT NOT NULL COMMENT 'Identifies the subcategory ID from the subcategory table\n\nWorks as a foreign key on:\nsubcategory_language.subcategory_id = subcategory.sub_category_id\n\ne.g. 1, 2, 3',
   `name` VARCHAR(100) NOT NULL COMMENT 'Name of the subcategory in a specified language\n\ne.g. ',
-  PRIMARY KEY (`category_language_id`),
+  PRIMARY KEY (`subcategory_language_id`),
   CONSTRAINT `subcategory_language_subcategory_id`
     FOREIGN KEY (`subcategory_id`)
     REFERENCES `subcategory` (`subcategory_id`)

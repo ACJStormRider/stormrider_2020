@@ -17,17 +17,30 @@ public class ProductGroupController {
     ProductGroupService productGroupService;
 
 
+//======================================================================================================================
+//  GET METHODS
+//======================================================================================================================
+
+
+//  Will return a list of all Product Groups
+//  --------------------------------------------------------------------------------------------------------------------
     @GetMapping("/all")
     public ResponseEntity<List<ProductGroup>> getAllProductGroup() {
         return productGroupService.getAll();
     }
 
 
+//  Will return a Product Group by its ID
+//  --------------------------------------------------------------------------------------------------------------------
     @GetMapping("/{id}")
     public ResponseEntity<ProductGroup> getProductGroupById (@PathVariable("id") int id) {
         return productGroupService.getById(id);
     }
 
+
+//======================================================================================================================
+//  POST METHODS
+//======================================================================================================================
 
 
 }

@@ -1,10 +1,6 @@
 package com.example.stormrider_2020.model.Category;
 
-import com.example.stormrider_2020.model.Subcategory.Subcategory;
-import com.example.stormrider_2020.model.Subcategory.SubcategoryHasCategory;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,9 +8,8 @@ import java.util.Set;
 public class Category {
 
     private int categoryId;
-    Set<CategoryLanguage> categoryLanguages;
-    Set<Subcategory> subcategories;
-    //Set<SubcategoryHasCategory> subcategoryIds;
+    private Set<CategoryLanguage> categoryLanguages;
+    private Set<Long> subcategoryIds;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -37,28 +32,15 @@ public class Category {
         this.categoryLanguages = categoryLanguages;
     }
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "subcategory_has_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
-    public Set<Subcategory> getSubcategories() {
-        return subcategories;
-    }
-    public void setSubcategories(Set<Subcategory> subcategories) {
-        this.subcategories = subcategories;
-    }
-
-    /*
-    @ManyToOne
-    @JoinColumn(name="subcategory_has_category", nullable=false)
-    public Set<SubcategoryHasCategory> getSubcategoryIds() {
+    @ElementCollection
+    @CollectionTable(name="subcategory_has_category", joinColumns=@JoinColumn(name="category_id"))
+    @Column(name="subcategory_id")
+    public Set<Long> getSubcategoryIds() {
         return subcategoryIds;
     }
-    public void setSubcategoryIds(Set<SubcategoryHasCategory> subcategoryIds) {
+    public void setSubcategoryIds(Set<Long> subcategoryIds) {
         this.subcategoryIds = subcategoryIds;
-    }*/
+    }
 
 //==============================================================================================
 //  METHODS

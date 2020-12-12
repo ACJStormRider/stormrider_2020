@@ -11,8 +11,9 @@ public class ProductGroup {
     private double basePrice;
     private double vat;
     private ProductGroupImage productGroupImage;
-    Set<ProductGroupLanguage> productGroupLanguages;
-    //Set<Product> products;
+    private Set<ProductGroupLanguage> productGroupLanguages;
+    private Set<Long> subcategoryIds;
+    private Set<Long> productIds;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -62,16 +63,25 @@ public class ProductGroup {
         this.productGroupLanguages = productGroupLanguages;
     }
 
-    /*
-    @OneToMany(mappedBy="productGroupId")
-    public Set<Product> getProducts() {
-        return products;
+    @ElementCollection
+    @CollectionTable(name="product_group_has_subcategory", joinColumns=@JoinColumn(name="product_group_id"))
+    @Column(name="subcategory_id")
+    public Set<Long> getSubcategoryIds() {
+        return subcategoryIds;
     }
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setSubcategoryIds(Set<Long> subcategoryIds) {
+        this.subcategoryIds = subcategoryIds;
     }
 
-     */
+    @ElementCollection
+    @CollectionTable(name="product", joinColumns=@JoinColumn(name="product_group_id"))
+    @Column(name="product_id")
+    public Set<Long> getProductIds() {
+        return productIds;
+    }
+    public void setProductIds(Set<Long> productIds) {
+        this.productIds = productIds;
+    }
 
 //==============================================================================================
 //  METHODS

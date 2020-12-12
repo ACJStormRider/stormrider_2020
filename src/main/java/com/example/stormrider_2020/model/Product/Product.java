@@ -14,7 +14,7 @@ public class Product {
     private short inventory;
     private int productGroupId;
     private Date lastUpdated;
-    private Set<Variable> variables;
+    private Set<Long> variableIds;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -56,16 +56,14 @@ public class Product {
         this.lastUpdated = lastUpdated;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_has_variable",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "variable_id"))
-    public Set<Variable> getVariables() {
-        return variables;
+    @ElementCollection
+    @CollectionTable(name="product_has_variable", joinColumns=@JoinColumn(name="product_id"))
+    @Column(name="variable_id")
+    public Set<Long> getVariableIds() {
+        return variableIds;
     }
-    public void setVariables(Set<Variable> variables) {
-        this.variables = variables;
+    public void setVariableIds(Set<Long> variableIds) {
+        this.variableIds = variableIds;
     }
 
 //==============================================================================================
