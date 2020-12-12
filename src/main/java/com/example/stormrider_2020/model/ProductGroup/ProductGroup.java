@@ -1,7 +1,5 @@
 package com.example.stormrider_2020.model.ProductGroup;
 
-import com.example.stormrider_2020.model.Product.Product;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +10,7 @@ public class ProductGroup {
     private int productGroupId;
     private double basePrice;
     private double vat;
+    private ProductGroupImage productGroupImage;
     Set<ProductGroupLanguage> productGroupLanguages;
     //Set<Product> products;
 
@@ -44,6 +43,15 @@ public class ProductGroup {
     }
     public void setVat(double vat) {
         this.vat = vat;
+    }
+
+    @OneToOne
+    @JoinColumn(name="product_group_image_id", nullable=false)
+    public ProductGroupImage getProductGroupImage() {
+        return productGroupImage;
+    }
+    public void setProductGroupImage(ProductGroupImage productGroupImage) {
+        this.productGroupImage = productGroupImage;
     }
 
     @OneToMany(mappedBy="productGroupId")

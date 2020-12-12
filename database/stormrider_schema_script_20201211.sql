@@ -30,16 +30,37 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `product_group_image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `product_group_image` ;
+
+CREATE TABLE IF NOT EXISTS `product_group_image` (
+  `product_group_image_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table\n',
+  `image` VARCHAR(256) NOT NULL COMMENT 'Link to the image\n\ne.g. ',
+  `name` VARCHAR(45) NOT NULL COMMENT 'Name of the image\n\ne.g. ',
+  PRIMARY KEY (`product_group_image_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `product_group`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `product_group` ;
 
 CREATE TABLE IF NOT EXISTS `product_group` (
   `product_group_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table\n',
+  `product_group_image_id` INT NOT NULL,
   `base_price` DOUBLE NOT NULL COMMENT 'Base price (net) of the product group\n\nFull price (gross) = base_price + vat\n\ne.g. ',
   `vat` DOUBLE NOT NULL COMMENT 'VAT amount\n\nFull price (gross) = base_price + vat\n\ne.g. ',
-  PRIMARY KEY (`product_group_id`))
+  PRIMARY KEY (`product_group_id`),
+  CONSTRAINT `product_group_product_group_image_id`
+    FOREIGN KEY (`product_group_image_id`)
+    REFERENCES `product_group_image` (`product_group_image_id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `product_group_product_group_image_id_idx` ON `product_group` (`product_group_image_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -303,27 +324,6 @@ ENGINE = InnoDB;
 CREATE INDEX `fk_product_group_id_idx` ON `product_group_language` (`product_group_id` ASC) VISIBLE;
 
 CREATE INDEX `fk_app_language_code_idx` ON `product_group_language` (`app_language_code` ASC) VISIBLE;
-
-
--- -----------------------------------------------------
--- Table `product_image`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `product_image` ;
-
-CREATE TABLE IF NOT EXISTS `product_image` (
-  `product_image_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Unique ID of each row in the table\n',
-  `product_group_id` INT NOT NULL COMMENT 'Identifies the product group ID from the product_group table\n\nWorks as a foreign key on:\nproduct_image.product_group_id = product_group.product_group_id\n\ne.g. 1, 2, 3',
-  `image` VARCHAR(256) NOT NULL COMMENT 'Link to the image\n\ne.g. ',
-  `name` VARCHAR(45) NOT NULL COMMENT 'Name of the image\n\ne.g. ',
-  PRIMARY KEY (`product_image_id`),
-  CONSTRAINT `product_image_product_group_id`
-    FOREIGN KEY (`product_group_id`)
-    REFERENCES `product_group` (`product_group_id`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_product_group_id_idx` ON `product_image` (`product_group_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -605,6 +605,27 @@ CREATE INDEX `voucher_subcategory_id_idx` ON `voucher_has_group` (`subcategory_i
 CREATE INDEX `voucher_category_id_idx` ON `voucher_has_group` (`category_id` ASC) VISIBLE;
 
 CREATE INDEX `voucher_group_voucher_id_idx` ON `voucher_has_group` (`voucher_id` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `product_image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `product_image` ;
+
+CREATE TABLE IF NOT EXISTS `product_image` (
+  `product_image_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `image` VARCHAR(256) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`product_image_id`),
+  CONSTRAINT `product_image_product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `product` (`product_id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE INDEX `product_image_product_id_idx` ON `product_image` (`product_id` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
