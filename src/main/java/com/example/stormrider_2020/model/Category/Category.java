@@ -12,9 +12,8 @@ import java.util.Set;
 public class Category {
 
     private int categoryId;
-    Set<CategoryLanguage> categoryLanguages;
-    Set<Subcategory> subcategories;
-    //Set<SubcategoryHasCategory> subcategoryIds;
+    private Set<CategoryLanguage> categoryLanguages;
+    private Set<Subcategory> subcategories;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -49,16 +48,6 @@ public class Category {
     public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
-
-    /*
-    @ManyToOne
-    @JoinColumn(name="subcategory_has_category", nullable=false)
-    public Set<SubcategoryHasCategory> getSubcategoryIds() {
-        return subcategoryIds;
-    }
-    public void setSubcategoryIds(Set<SubcategoryHasCategory> subcategoryIds) {
-        this.subcategoryIds = subcategoryIds;
-    }*/
 
 //==============================================================================================
 //  METHODS

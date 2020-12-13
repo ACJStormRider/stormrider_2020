@@ -35,7 +35,7 @@ class NavBar extends React.Component {
             })
     }
 
-//  RENDER METHODS
+//  RENDER TRANSLATIONS
 //=====================================================================================================================
 
     renderAboutUs(language) {
@@ -51,51 +51,49 @@ class NavBar extends React.Component {
         }
     }
 
+//  RENDER METHOD
+//=====================================================================================================================
 
     render() {
         return (
-            <Navbar expand="lg">
-                <Link to={""} className="navbar-brand">
-                    <img src={logo} width="150"/>
-                </Link>
+            <Navbar expand="lg" bg="dark" variant="dark">
+                <Link className="navbar-brand" to={
+                    {
+                        pathname: "/" + language
+                    }
+                }><img src={logo} width="150"/></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                <span>
+                <>
                 {
                     this.state.categories.map((category) =>
-                    <span>
+                    <>
                     {
-                        (typeof(category.categoryLanguages) == 'object') ?
-                        <span>
+                        category.categoryLanguages.map((categoryLanguage) =>
+                        <>
                         {
-                            category.categoryLanguages.map((categoryLanguage) =>
-                            <span>
-                            {
-                                (categoryLanguage.appLanguageCode === language) ?
-                                <Link className="navlink" to={
+                            (categoryLanguage.appLanguageCode === language) ?
+                                <Link className="nav-link" to={
                                     {
-                                        pathname: "/" + language + "/" + categoryLanguage.categoryId,
-                                        state: this.state.category
+                                        pathname: "/product-list/" + language + "/" + categoryLanguage.categoryId
                                     }
-                                }>
-                                    {categoryLanguage.name}
-                                </Link>
-                                :
-                                null
-                            }
-                            </span>
-                            )
+                                }>{categoryLanguage.name}</Link>
+                            :
+                            null
                         }
-                        </span>
-                        :
-                        null
+                        </>
+                        )
                     }
-                    </span>
+                    </>
                     )
                 }
-                </span>
-                    <Link to={"/about-us"} className="nav-link">{this.renderAboutUs(language)}</Link>
+                </>
+                <Link className="nav-link" to={
+                    {
+                        pathname: "/about-us/" + language + "/" + this.renderAboutUs(language)
+                    }
+                }>{this.renderAboutUs(language)}</Link>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>

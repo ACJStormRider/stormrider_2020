@@ -11,8 +11,8 @@ import java.util.Set;
 public class Subcategory {
 
     private int subcategoryId;
-    Set<SubcategoryLanguage> subcategoryLanguages;
-    Set<ProductGroup> productGroups;
+    private Set<SubcategoryLanguage> subcategoryLanguages;
+    private Set<ProductGroup> productGroups;
 
 //==============================================================================================
 //  GETTERS & SETTERS

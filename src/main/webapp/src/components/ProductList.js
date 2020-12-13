@@ -1,5 +1,8 @@
 import React from 'react';
-import product from '../images/product-dummy.png'
+import bridle from '../images/products/bridle.png'
+import horseshoes from '../images/products/horseshoes.jpg'
+import saddle1 from '../images/products/saddle1.png'
+import saddle2 from '../images/products/saddle2.jpg'
 
 import axios from 'axios';
 import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
@@ -10,16 +13,36 @@ import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
 
 class ProductList extends React.Component {
 
+//  METHODS FOR RETRIEVING VALUES FROM PATH
+//=====================================================================================================================
+
     getCategoryId() {
         const categoryId = this.props.match.params.categoryId;
-        console.log(categoryId);
         return categoryId;
     }
 
     getLanguage() {
         const language = this.props.match.params.language;
-        console.log(language);
         return language;
+    }
+
+    getImage(link) {
+        switch(link) {
+            case 'bridle.png':
+                return bridle;
+                break;
+            case 'horseshoes.jpg':
+                return horseshoes;
+                break;
+            case 'saddle1.png':
+                return saddle1;
+                break;
+            case 'saddle2.jpg':
+                return saddle2;
+                break;
+            default:
+                break;
+        }
     }
 
 //  CONSTRUCTOR
@@ -49,21 +72,21 @@ class ProductList extends React.Component {
             <CardColumns className="card-frame">
             {
                 this.state.categories.map((category) =>
-                <span>
+                <>
                 {
                     (category.categoryId == this.getCategoryId()) ?
-                    <span>
+                    <>
                     {
                         category.subcategories.map((subcategory) =>
-                        <span>
+                        <>
                         {
                             subcategory.productGroups.map((productGroup) =>
                                 <Card style={{width: '18rem'}}>
-                                    <Card.Img variant="top" src={product}/>
+                                    <Card.Img variant="top" style={{height: '20rem'}} src={this.getImage(productGroup.productGroupImage.image)}/>
                                     <Card.Body>
                                         {
                                             productGroup.productGroupLanguages.map((productGroupLanguage) =>
-                                        <span>
+                                        <>
                                         {
                                             (productGroupLanguage.appLanguageCode == this.getLanguage()) ?
                                                 <div>
@@ -73,7 +96,7 @@ class ProductList extends React.Component {
                                                 :
                                                 null
                                         }
-                                        </span>
+                                        </>
                                             )
                                         }
                                         <Card.Text className="card-description">Price: {productGroup.basePrice + productGroup.vat}</Card.Text>
@@ -82,14 +105,14 @@ class ProductList extends React.Component {
                                 </Card>
                             )
                         }
-                        </span>
+                        </>
                         )
                     }
-                    </span>
+                    </>
                     :
                     null
                 }
-                </span>
+                </>
                 )
             }
             </CardColumns>

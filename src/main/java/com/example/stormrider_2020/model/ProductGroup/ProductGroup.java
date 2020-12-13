@@ -1,5 +1,7 @@
 package com.example.stormrider_2020.model.ProductGroup;
 
+import com.example.stormrider_2020.model.Product.Product;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,8 +13,8 @@ public class ProductGroup {
     private double basePrice;
     private double vat;
     private ProductGroupImage productGroupImage;
-    Set<ProductGroupLanguage> productGroupLanguages;
-    //Set<Product> products;
+    private Set<ProductGroupLanguage> productGroupLanguages;
+    private Set<Product> products;
 
 //==============================================================================================
 //  GETTERS & SETTERS
@@ -62,7 +64,6 @@ public class ProductGroup {
         this.productGroupLanguages = productGroupLanguages;
     }
 
-    /*
     @OneToMany(mappedBy="productGroupId")
     public Set<Product> getProducts() {
         return products;
@@ -70,8 +71,6 @@ public class ProductGroup {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
-
-     */
 
 //==============================================================================================
 //  METHODS
