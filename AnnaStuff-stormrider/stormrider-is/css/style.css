@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+
+:root {
+    --white: #fff;
+    --gray: #F4F4F4;
+    --dark-gray: #252629;
+    --bg-black: #0F0F10;
+    --black: #000;
+
+    --light-blue: #B4CbD9;
+    --blue: #3B799F;
+    --dark-blue: #314759;
+
+    --header-font: "Marcellus SC", "Mukta Mahee", sans-serif;
+    --body-font: "Mukta Mahee", sans-serif;
+    --number-font: "PT sans", "mukta Mahee", sans-serif;
+}
+
+/*    C O L O U R S     */
+
+.white {
+    color: var(--white);
+}
+
+
+/*    F O N T S     */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: var(--header-font);
+}
+
+body {
+    font-family: var(--body-font);
+}
+
+header {
+    font-family: var(--header-font);
+    font-size: 1.3em;
+}
+
+
+
+
+/*    H E A D E R     */
+
+.navbar {
+    /*    background-color: var(--bg-black);*/
+    background-image:
+        linear-gradient(#000C, #000B),
+        url(../../../src/main/webapp/src/header.jpg);
+    /*    background-blend-mode: overlay;*/
+    background-position: 60%;
+    background-size: cover;
+    box-shadow: 10px;
+}
+
+.languageSwitch {
+    position: absolute;
+    top: 20px;
+    color: white !important;
+}
+
+.languageSwitch a {
+    color: white;
+}
+
+
+.navbar-nav a {
+    margin: 0 0.4em;
+}
+
+
+
+/*    P R O D U C T  P A G E    */
+
+.product {
+    background-color: var(--gray);
+    padding: 1px 20px 10px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+
+    text-align: center;
+
+
+    -webkit-box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.16);
+}
+
+.productFigure {
+    width: 70%;
+    margin: 30px auto;
+}
+
+.productImg {
+    width: 100%;
+}
+
+.productName {
+    text-align: center;
+    font-size: 2.4em;
+}
+
+.product p {
+    text-align: right;
+    margin: 0;
+    font-family: var(--number-font);
+}
+
+.productPrice {
+    font-size: 1.1em;
+}
+
+/*    F O O T E R     */
+
+footer {
+    background-color: var(--bg-black);
+}
+
+
+
+/*    B R E A K P O I N T S    */
+
+/* Small devices (landscape phones, 576px and up)  */
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up)  */
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up)  */
+@media (min-width: 992px) {}
+
+/* Extra large devices (large desktops, 1200px and up)  */
+@media (min-width: 1200px) {}
