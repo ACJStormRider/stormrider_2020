@@ -5,20 +5,19 @@ import axios from 'axios';
 import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
 
 
-//  DECLARATION OF GLOBAL LANGUAGE VARIABLE
-//============================================
 
 class ProductList extends React.Component {
 
+//  METHODS FOR RETRIEVING VALUES FROM PATH
+//=====================================================================================================================
+
     getCategoryId() {
         const categoryId = this.props.match.params.categoryId;
-        console.log(categoryId);
         return categoryId;
     }
 
     getLanguage() {
         const language = this.props.match.params.language;
-        console.log(language);
         return language;
     }
 
@@ -27,18 +26,24 @@ class ProductList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {categories: []};
+        this.state = {category: []};
+        this.state = {subcategories: []};
+        this.state = {productGroups: []};
     }
 
 //  GET REQUEST
 //=====================================================================================================================
 
     componentDidMount() {
-        axios.get("http://localhost:8888/api/category/all") // the ID needs to be passed from NavBar
+        axios.get("http://localhost:8888/api/category/" + this.getCategoryId())
             .then(response => response.data)
             .then((data) => {
-                this.setState({categories : data});
+                this.setState({category : data});
             })
+
+        this.state.category.subcategoryIds.map((subcategoryId) =>
+            subcategoryId.
+        )
     }
 
 //  RENDER METHODS
@@ -48,7 +53,7 @@ class ProductList extends React.Component {
         return (
             <CardColumns className="card-frame">
             {
-                this.state.categories.map((category) =>
+                this.state.category.map((category) =>
                 <span>
                 {
                     (category.categoryId == this.getCategoryId()) ?
