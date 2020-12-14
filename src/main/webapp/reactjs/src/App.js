@@ -8,31 +8,34 @@ import BookList from "./components/BookList";
 import Book from "./components/Book";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProductPage from "./components/ProductPage";
+import Product from './components/Product';
 
 function App() {
     const marginTop = {
         marginTop:"20px"
     };
-    let x =444;
 
   return (
+      <div>
+          <Router className="App">
+              <Navi />
+              <Container>
+                  <Row>
+                      <Col lg={12} style={marginTop}>
+                          <Switch>
+                              <Route path="/" exact component={Welcome}/>
+                              <Route path="/add" exact component={Book}/>
+                              <Route path="/list" exact component={BookList}/>
+                              <Route path="/products" exact component={ProductPage}/>
+                              <Route path="/productDetails" exact component={Product}/>
+                          </Switch>
+                      </Col>
+                  </Row>
+              </Container>
+              <Footer />
+          </Router>
+      </div>
 
-    <Router className="App">
-        <Navi />
-        <Container>
-            <Row>
-                <Col lg={12} style={marginTop}>
-                    <Switch>
-                        <Route path="/" exact component={Welcome}/>
-                        <Route path="/add" exact component={Book}/>
-                        <Route path="/list" exact component={BookList}/>
-                        <Route path="/Products" exact component={ProductPage}/>
-                    </Switch>
-                </Col>
-            </Row>
-        </Container>
-        <Footer />
-    </Router>
   );
 }
 

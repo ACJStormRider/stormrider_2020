@@ -1,0 +1,37 @@
+
+
+.navbar-tester{
+  /*background-color: var(--bg-black);*/
+  /* background-blend-mode: overlay; */
+
+  background-position: 60%;
+  background-size: cover;
+}
+
+.nav-links{
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.subcat-menu{
+  text-align: left;
+  padding-left: 30px;
+}
+
+
+/*
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: #252629;
+  color: white;
+}
+
+
+*/

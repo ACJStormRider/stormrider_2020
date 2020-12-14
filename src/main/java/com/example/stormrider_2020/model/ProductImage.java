@@ -9,6 +9,7 @@ public class ProductImage {
     private String image;
     private String name;
     private ProductGroup productGroupByProductGroupId;
+    private int productGroupId;
 
     @Id
     @Column(name = "product_image_id", nullable = false)
@@ -61,7 +62,7 @@ public class ProductImage {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
-
+/*
     @ManyToOne
     @JoinColumn(name = "product_group_id", referencedColumnName = "product_group_id", nullable = false)
     public ProductGroup getProductGroupByProductGroupId() {
@@ -70,5 +71,15 @@ public class ProductImage {
 
     public void setProductGroupByProductGroupId(ProductGroup productGroupByProductGroupId) {
         this.productGroupByProductGroupId = productGroupByProductGroupId;
+    }
+*/
+    @Basic
+    @Column(name = "product_group_id", nullable = false)
+    public int getProductGroupId() {
+        return productGroupId;
+    }
+
+    public void setProductGroupId(int productGroupId) {
+        this.productGroupId = productGroupId;
     }
 }

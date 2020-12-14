@@ -1,8 +1,7 @@
 package com.example.stormrider_2020.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Subcategory {
@@ -17,6 +16,15 @@ public class Subcategory {
     public void setSubCategoryId(int subCategoryId) {
         this.subCategoryId = subCategoryId;
     }
+
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "subcategory_has_category",
+            joinColumns = @JoinColumn(name = "subcategory_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    Set<Category> subcatsCategories;
 
     @Override
     public boolean equals(Object o) {

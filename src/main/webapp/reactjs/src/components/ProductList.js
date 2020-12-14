@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Table, Jumbotron} from "react-bootstrap";
 import ProductCard from "./ProductCard";
-
+import axios from 'axios';
 
 export default class ProductList extends Component{
 
@@ -13,15 +13,35 @@ export default class ProductList extends Component{
     }
 
     componentDidMount() {
+        axios.get("http://localhost:8888/api/subcategories")
+            .then(response => response.data)
+            .then((data) => {
+                this.setState({cards: data});
+            });
 
     }
 
 
+
     render() {
         return (
-            <Jumbotron>
-                <ProductCard />
-            </Jumbotron>
+            <div>
+                <Jumbotron style={{display:'flex'}}>
+                    {
+                        this.state.cards.length === 0 ?
+                            <tr>
+                                <td colSpan="6">Products available</td>
+                            </tr> :
+                            this.state.cards.map((card) => (
+                                <tr key={card.id}>
+                                    <td>{card.name}</td>
+                                </tr>
+                                && <ProductCard parentData={card}/>
+                            ))
+                    }
+
+                </Jumbotron>
+            </div>
             /*
             <Card className={"border border-dark bg-dark text-white"} style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={process.env.PUBLIC_URL + "/img/locologo.png"} width={192} alt="second logo" />
