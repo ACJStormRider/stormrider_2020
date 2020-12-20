@@ -8,9 +8,6 @@ import axios from 'axios';
 import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
 
 
-//  DECLARATION OF GLOBAL LANGUAGE VARIABLE
-//============================================
-
 class ProductList extends React.Component {
 
 //  METHODS FOR RETRIEVING VALUES FROM PATH
@@ -100,7 +97,11 @@ class ProductList extends React.Component {
                                             )
                                         }
                                         <Card.Text className="card-description">Price: {productGroup.basePrice + productGroup.vat}</Card.Text>
-                                        <Button variant="outline-dark" block>Go somewhere</Button>
+                                        <Button variant="outline-dark" block href={
+                                            {
+                                                pathname: "/product-details/" + this.getLanguage() + "/" + productGroup.productGroupId
+                                            }
+                                        }>View Product</Button>
                                     </Card.Body>
                                 </Card>
                             )

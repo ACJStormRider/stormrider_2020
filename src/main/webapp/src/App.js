@@ -8,6 +8,7 @@ import Welcome from "./components/Welcome";
 import NavBar from "./components/NavBar";
 import ProductList from "./components/ProductList";
 import AboutUs from "./components/AboutUs";
+import Product from "./components/Product";
 import React from "react";
 
 
@@ -23,6 +24,7 @@ function App() {
                             <Route path="/:language" exact component={Welcome}/>
                             <Route path="/about-us/:language/:aboutUs" component={AboutUs}/>
                             <Route path="/product-list/:language/:categoryId" component={ProductList}/>
+                            <Route path="/product-details/:language/:productGroupId" component={Product}/>
                         </Switch>
                     </Col>
                 </Row>
@@ -32,3 +34,5 @@ function App() {
 }
 
 export default App;
+
+

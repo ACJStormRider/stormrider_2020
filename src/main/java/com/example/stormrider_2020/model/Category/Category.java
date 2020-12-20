@@ -36,7 +36,6 @@ public class Category {
         this.categoryLanguages = categoryLanguages;
     }
 
-
     @ManyToMany
     @JoinTable(
             name = "subcategory_has_category",
