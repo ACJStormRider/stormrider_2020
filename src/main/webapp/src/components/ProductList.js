@@ -4,74 +4,24 @@ import horseshoes from '../images/products/horseshoes.jpg'
 import saddle1 from '../images/products/saddle1.png'
 import saddle2 from '../images/products/saddle2.jpg'
 
-import axios from 'axios';
 import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
 
 
-//  DECLARATION OF GLOBAL LANGUAGE VARIABLE
-//============================================
 
 class ProductList extends React.Component {
 
-//  METHODS FOR RETRIEVING VALUES FROM PATH
-//=====================================================================================================================
-
-    getCategoryId() {
-        const categoryId = this.props.match.params.categoryId;
-        return categoryId;
-    }
-
-    getLanguage() {
-        const language = this.props.match.params.language;
-        return language;
-    }
-
-    getImage(link) {
-        switch(link) {
-            case 'bridle.png':
-                return bridle;
-                break;
-            case 'horseshoes.jpg':
-                return horseshoes;
-                break;
-            case 'saddle1.png':
-                return saddle1;
-                break;
-            case 'saddle2.jpg':
-                return saddle2;
-                break;
-            default:
-                break;
-        }
-    }
-
-//  CONSTRUCTOR
-//=====================================================================================================================
-
-    constructor(props) {
-        super(props);
-        this.state = {categories: []};
-    }
-
-//  GET REQUEST
-//=====================================================================================================================
-
-    componentDidMount() {
-        axios.get("http://localhost:8888/api/category/all") // the ID needs to be passed from NavBar
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({categories : data});
-            })
-    }
-
-//  RENDER METHODS
+//  R E N D E R   M E T H O D
 //=====================================================================================================================
 
     render() {
+        const { categoryId } = this.props.match.params; // Will retreive the catgeoryId parameter passed through the path
+        console.log(categoryId);
         return (
+            <div>lalal</div>
+        /*
             <CardColumns className="card-frame">
             {
-                this.state.categories.map((category) =>
+                this.props.categories.map((category) =>
                 <>
                 {
                     (category.categoryId == this.getCategoryId()) ?
@@ -116,6 +66,7 @@ class ProductList extends React.Component {
                 )
             }
             </CardColumns>
+            */
         );
     }
 

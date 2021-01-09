@@ -6,79 +6,72 @@ import {Link} from 'react-router-dom';
 import axios from "axios";
 
 
-//  DECLARATION OF GLOBAL LANGUAGE VARIABLE
-//============================================
-
-var language = 'en';
-
-
-
-
 class NavBar extends React.Component {
 
-//  CONSTRUCTOR
+//  S E T T I N G   T H E   S T A T E   F O R   T H E   N A V - B A R   C L A S S
 //=====================================================================================================================
 
-    constructor(props) {
-        super(props);
-        this.state = {categories: []};
+    // Will set the default parameters included in the state of the class;
+    // Used to store general translations which are not stored in the database
+    state = {
+        aboutUs: '',       // Will declare an empty String for storing AboutUs translation
     }
 
-//  GET REQUEST
+//  C O M P O N E N T   D I D   M O U N T   M E T H O D
 //=====================================================================================================================
 
+    // Gets executed while loading the component
     componentDidMount() {
-        axios.get("http://localhost:8888/api/category/all")
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({categories : data});
-            })
+        this.renderAboutUs(this.props.language);   // Will call the renderAboutUs() method declared below
     }
 
-//  RENDER TRANSLATIONS
+//  R E N D E R   T R A N S L A T I O N S   M E T H O D S
 //=====================================================================================================================
 
+    // Method responsible for displaying the correct translation of the
+    // 'About Us' section based on the language
     renderAboutUs(language) {
         switch(language) {
             case 'en':
-                return 'About Us';
+                this.setState({aboutUs: 'About Us'});
                 break;
             case 'is':
-                return 'Um Okkur';
+                this.setState({aboutUs: 'Um Okkur'});
                 break;
             default:
                 break;
         }
     }
 
-//  RENDER METHOD
+
+
+
+//  R E N D E R   M E T H O D
 //=====================================================================================================================
 
     render() {
+        const language = this.props.language;   // Declares a language variable and assigns the value to it
+                                                // passed from the App.js component as 'language'
         return (
             <Navbar expand="lg" bg="dark" variant="dark">
-                <Link className="navbar-brand" to={
-                    {
-                        pathname: "/" + language
-                    }
-                }><img src={logo} width="150"/></Link>
+                <Link className="navbar-brand" to={"/"}><img src={logo} width="150"/></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <>
                 {
-                    this.state.categories.map((category) =>
+                    this.props.categories.map((category) =>
                     <>
-                    {
+                        {
                         category.categoryLanguages.map((categoryLanguage) =>
                         <>
                         {
                             (categoryLanguage.appLanguageCode === language) ?
-                                <Link className="nav-link" to={
-                                    {
-                                        pathname: "/product-list/" + language + "/" + categoryLanguage.categoryId
-                                    }
-                                }>{categoryLanguage.name}</Link>
+                                <Link
+                                    className="nav-link"
+                                    to={{pathname: "product-list/" + category.categoryId}}>
+                                    {categoryLanguage.name}
+                                </Link>
                             :
                             null
                         }
@@ -89,11 +82,7 @@ class NavBar extends React.Component {
                     )
                 }
                 </>
-                <Link className="nav-link" to={
-                    {
-                        pathname: "/about-us/" + language + "/" + this.renderAboutUs(language)
-                    }
-                }>{this.renderAboutUs(language)}</Link>
+                <Link className="nav-link" to={"about-us"}>{this.state.aboutUs}</Link>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
