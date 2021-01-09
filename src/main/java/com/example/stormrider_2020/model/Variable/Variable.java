@@ -1,6 +1,7 @@
 package com.example.stormrider_2020.model.Variable;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -45,13 +46,4 @@ public class Variable {
 //  METHODS
 //==============================================================================================
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }
