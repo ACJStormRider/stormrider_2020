@@ -1,10 +1,8 @@
 import React from 'react';
-import bridle from '../images/products/bridle.png'
-import horseshoes from '../images/products/horseshoes.jpg'
-import saddle1 from '../images/products/saddle1.png'
-import saddle2 from '../images/products/saddle2.jpg'
 
-import {CardColumns, Card, Button, Jumbotron} from "react-bootstrap";
+import {CardColumns, Card, Button, Jumbotron, Container} from "react-bootstrap";
+import SubcategoryList from "./SubcategoryList";
+import ProductListItem from "./ProductListItem";
 
 
 
@@ -14,59 +12,30 @@ class ProductList extends React.Component {
 //=====================================================================================================================
 
     render() {
-        const { categoryId } = this.props.match.params; // Will retreive the catgeoryId parameter passed through the path
-        console.log(categoryId);
+        const language = this.props.language;   // Declares a language variable and assigns the value to it
+                                                // passed from the App.js component as 'language'
         return (
-            <div>lalal</div>
-        /*
-            <CardColumns className="card-frame">
-            {
-                this.props.categories.map((category) =>
-                <>
-                {
-                    (category.categoryId == this.getCategoryId()) ?
-                    <>
+            <Container>
+                <SubcategoryList
+                    subcategories={this.props.subcategories}
+                    language={language}/>
+                <CardColumns className="card-frame">
                     {
-                        category.subcategories.map((subcategory) =>
+                        this.props.subcategories.map((subcategory) =>
                         <>
                         {
                             subcategory.productGroups.map((productGroup) =>
-                                <Card style={{width: '18rem'}}>
-                                    <Card.Img variant="top" style={{height: '20rem'}} src={this.getImage(productGroup.productGroupImage.image)}/>
-                                    <Card.Body>
-                                        {
-                                            productGroup.productGroupLanguages.map((productGroupLanguage) =>
-                                        <>
-                                        {
-                                            (productGroupLanguage.appLanguageCode == this.getLanguage()) ?
-                                                <div>
-                                                    <Card.Text className="card-title">{productGroupLanguage.productGroupName}</Card.Text>
-                                                    <Card.Text className="card-description">{productGroupLanguage.productGroupDescription}</Card.Text>
-                                                </div>
-                                                :
-                                                null
-                                        }
-                                        </>
-                                            )
-                                        }
-                                        <Card.Text className="card-description">Price: {productGroup.basePrice + productGroup.vat}</Card.Text>
-                                        <Button variant="outline-dark" block>Go somewhere</Button>
-                                    </Card.Body>
-                                </Card>
+                                <ProductListItem
+                                    getProductGroup={this.props.getProductGroup}
+                                    productGroup={productGroup}
+                                    language={language} />
                             )
                         }
                         </>
                         )
                     }
-                    </>
-                    :
-                    null
-                }
-                </>
-                )
-            }
-            </CardColumns>
-            */
+                </CardColumns>
+            </Container>
         );
     }
 

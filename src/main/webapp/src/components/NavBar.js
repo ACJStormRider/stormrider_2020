@@ -62,14 +62,15 @@ class NavBar extends React.Component {
                 {
                     this.props.categories.map((category) =>
                     <>
-                        {
+                    {
                         category.categoryLanguages.map((categoryLanguage) =>
                         <>
                         {
                             (categoryLanguage.appLanguageCode === language) ?
                                 <Link
+                                    onClick={this.props.getSubcategoryByCategoryId.bind(this, category.categoryId)}
                                     className="nav-link"
-                                    to={{pathname: "product-list/" + category.categoryId}}>
+                                    to="product-list">
                                     {categoryLanguage.name}
                                 </Link>
                             :

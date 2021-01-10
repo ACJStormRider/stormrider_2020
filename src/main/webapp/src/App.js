@@ -10,6 +10,7 @@ import Welcome from "./components/Welcome";
 import NavBar from "./components/NavBar";
 import ProductList from "./components/ProductList";
 import AboutUs from "./components/AboutUs";
+import ProductDetails from "./components/ProductDetails";
 
 
 class App extends Component {
@@ -20,6 +21,8 @@ class App extends Component {
     // Will set the default parameters included in the state of the class
     state = {
         categories: [],     // Will declare an empty array for storing Categories
+        subcategories: [],
+        productGroup: '',
         language: 'en'      // Will declare a String with a default value of 'en' for storing language
     }
 
@@ -31,15 +34,29 @@ class App extends Component {
         this.getAllCategories();    // Will call the getAllCategories() method declared below
     }
 
-//  G E T   R E Q U E S T   M E T H O D
+//  M E T H O D S
 //=====================================================================================================================
 
+    // Gets all categories from the database by using axios
     getAllCategories() {
         axios.get("http://localhost:8888/api/category/all") // Will execute the get request from the backend
             .then(response => response.data)                    // Will read the response of the request
             .then((data) => {
                 this.setState({categories : data});    // Will insert the data from the response into a
             })                                              // categories array declared as one of the state parameters
+    }
+
+    // Gets all subcategories from a selected category by its ID
+    getSubcategoryByCategoryId = (categoryId) => {
+        (this.state.categories.map((category) =>    // Maps through the 'categories' array set as the state of the class
+            (category.categoryId === categoryId) ?  // Checks whether the category ID matches the selected one
+                this.setState({subcategories: category.subcategories})  // Fills 'subcategories' array from the state
+                : null                                                       // of this class with data from 'categories'
+        ))
+    }
+
+    getProductGroup = (productGroup) => {
+        this.setState({productGroup: productGroup})
     }
 
 
@@ -49,12 +66,13 @@ class App extends Component {
 //=====================================================================================================================
 
     render() {
-        console.log(this.props.categoryLanguage);
         return (
             <Router>
                 <NavBar
                     categories={this.state.categories}
-                    language={this.state.language} />
+                    language={this.state.language}
+                    getSubcategoryByCategoryId={this.getSubcategoryByCategoryId}
+                    getProductGroup={this.getProductGroup} />
                 <Container>
                     <Row>
                         <Col>
@@ -67,10 +85,16 @@ class App extends Component {
                                     <AboutUs
                                         language={this.state.language} />
                                 </Route>
-                                <Route path="/product-list/:categoryId">
+                                <Route path="/product-list">
                                     <ProductList
-                                       categories={this.props.categories}
+                                        getProductGroup={this.getProductGroup}
+                                       subcategories={this.state.subcategories}
                                        language={this.state.language} />
+                                </Route>
+                                <Route path="/product-details">
+                                    <ProductDetails
+                                        productGroup={this.state.productGroup}
+                                        language={this.state.language} />
                                 </Route>
                             </Switch>
                         </Col>
