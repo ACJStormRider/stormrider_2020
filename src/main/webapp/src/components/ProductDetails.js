@@ -4,6 +4,7 @@ import bridle from "../images/products/bridle.png";
 import horseshoes from "../images/products/horseshoes.jpg";
 import saddle1 from "../images/products/saddle1.png";
 import saddle2 from "../images/products/saddle2.jpg";
+import VariableList from "./VariableList";
 
 class ProductDetails extends React.Component {
 
@@ -39,7 +40,6 @@ class ProductDetails extends React.Component {
     render() {
         const language = this.props.language;   // Declares a language variable and assigns the value to it
                                                 // passed from the App.js component as 'language'
-        console.log(this.props.productGroup);
         return (
             <Container>
                 <Row>
@@ -58,8 +58,36 @@ class ProductDetails extends React.Component {
                             {
                                 (productGroupLanguage.appLanguageCode == language) ?
                                     <div>
-                                        <h2>{productGroupLanguage.productGroupName}</h2>
+                                        <h1>{productGroupLanguage.productGroupName}</h1>
                                         <p>{productGroupLanguage.productGroupDescription}</p>
+                                        {
+                                            (this.props.productGroup.products.map((product) =>
+                                                <VariableList
+                                                    language={language}
+                                                    variables={product.variables} />
+                                                /*
+                                                    product.variables.map((variable) =>
+                                                        <>
+                                                        {
+                                                            variable.variableType.variableTypeLanguages.map((variableTypeLanguage) =>
+                                                                <>
+                                                                {
+                                                                    (variableTypeLanguage.appLanguageCode == language) ?
+                                                                        <>
+                                                                            <p>{variableTypeLanguage.variableTypeName}</p>
+                                                                            <p>{variableTypeLanguage.variableTypeComment}</p>
+                                                                        </>
+                                                                        :
+                                                                        null
+                                                                }
+                                                                </>
+                                                            )
+                                                        }
+                                                        </>
+                                                    )
+                                                */
+                                            ))
+                                        }
                                     </div>
                                     :
                                     null

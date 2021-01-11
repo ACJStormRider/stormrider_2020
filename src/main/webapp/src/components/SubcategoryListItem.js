@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from "react-bootstrap";
 
 class SubcategoryListItem extends React.Component {
 
@@ -9,22 +10,20 @@ class SubcategoryListItem extends React.Component {
         const language = this.props.language;   // Declares a language variable and assigns the value to it
                                                 // passed from the SubcategoryList.js component as 'language'
         return (
-            <div>
+            <>
                 {
                     this.props.subcategory.subcategoryLanguages.map((subcategoryLanguage) =>
                         <>
                         {
                             (subcategoryLanguage.appLanguageCode === language) ?
-                                <p>
-                                    {subcategoryLanguage.name}
-                                </p>
+                                <Form.Check type="checkbox" label={subcategoryLanguage.name} />
                                 :
                                 null
                         }
                         </>
                     )
                 }
-            </div>
+            </>
         );
     }
 

@@ -59,6 +59,19 @@ class App extends Component {
         this.setState({productGroup: productGroup})
     }
 
+    changeLanguage = (language) => {
+        console.log(language);
+        switch(language) {
+            case 'en':
+                this.setState({language: 'is'});
+                break;
+            case 'is':
+                this.setState({language: 'en'});
+                break;
+            default:
+                break;
+        }
+    }
 
 
 
@@ -72,7 +85,8 @@ class App extends Component {
                     categories={this.state.categories}
                     language={this.state.language}
                     getSubcategoryByCategoryId={this.getSubcategoryByCategoryId}
-                    getProductGroup={this.getProductGroup} />
+                    getProductGroup={this.getProductGroup}
+                    changeLanguage={this.changeLanguage} />
                 <Container>
                     <Row>
                         <Col>

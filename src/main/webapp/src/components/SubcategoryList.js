@@ -1,5 +1,7 @@
 import React from 'react';
 import SubcategoryListItem from "./SubcategoryListItem";
+import { Form } from 'react-bootstrap';
+
 
 class SubcategoryList extends React.Component {
 
@@ -10,7 +12,7 @@ class SubcategoryList extends React.Component {
         const language = this.props.language;   // Declares a language variable and assigns the value to it
                                                 // passed from the App.js component as 'language'
         return (
-            <>
+            <Form.Group controlId="formBasicCheckbox">
             {
                 this.props.subcategories.map((subcategory) =>
                     <SubcategoryListItem
@@ -18,7 +20,7 @@ class SubcategoryList extends React.Component {
                         language={language} />
                 )
             }
-            </>
+            </Form.Group>
         );
     }
 

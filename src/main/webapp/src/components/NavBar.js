@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../header-logo.png'
 
-import {Navbar, Nav, Button} from "react-bootstrap";
+import {Navbar, Nav, Button, Form, FormControl} from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
@@ -58,33 +58,40 @@ class NavBar extends React.Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                <>
-                {
-                    this.props.categories.map((category) =>
                     <>
                     {
-                        category.categoryLanguages.map((categoryLanguage) =>
+                        this.props.categories.map((category) =>
                         <>
                         {
-                            (categoryLanguage.appLanguageCode === language) ?
-                                <Link
-                                    onClick={this.props.getSubcategoryByCategoryId.bind(this, category.categoryId)}
-                                    className="nav-link"
-                                    to="product-list">
-                                    {categoryLanguage.name}
-                                </Link>
-                            :
-                            null
+                            category.categoryLanguages.map((categoryLanguage) =>
+                            <>
+                            {
+                                (categoryLanguage.appLanguageCode === language) ?
+                                    <Link
+                                        onClick={this.props.getSubcategoryByCategoryId.bind(this, category.categoryId)}
+                                        className="nav-link"
+                                        to="product-list">
+                                        {categoryLanguage.name}
+                                    </Link>
+                                :
+                                null
+                            }
+                            </>
+                            )
                         }
                         </>
                         )
                     }
                     </>
-                    )
-                }
-                </>
-                <Link className="nav-link" to={"about-us"}>{this.state.aboutUs}</Link>
+                    <Link className="nav-link" to={"about-us"}>{this.state.aboutUs}</Link>
                 </Nav>
+                <Form inline>
+                    <Button
+                        onClick={this.props.changeLanguage.bind(this, language)}
+                        variant="outline-light" >
+                        Change Language
+                    </Button>
+                </Form>
                 </Navbar.Collapse>
             </Navbar>
 
