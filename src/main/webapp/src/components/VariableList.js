@@ -28,8 +28,10 @@ class VariableList extends React.Component {
                                             {
                                                 (variableTypeLanguage.appLanguageCode == language) ?
                                                     <Form.Label>
+                                                        {/*
                                                         <h3>{variableTypeLanguage.variableTypeName}</h3>
                                                         <p>{variableTypeLanguage.variableTypeComment}</p>
+                                                        */}
                                                     </Form.Label>
                                                     :
                                                     null
