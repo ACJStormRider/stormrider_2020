@@ -22,6 +22,11 @@ services:
       - database
     volumes:
       - C:\Users\Juste\Google Drive\@ MANO\Mokslai\@KEA\AP Computer Science\3rd. Semester\Programming 2\@Projects\Mandatory Project 1 - Storm Rider\stormrider_2020:/var/www/html/
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost/stormrider
+      - SPRING_DATASOURCE_USERNAME=storm
+      - SPRING_DATASOURCE_PASSWORD=rider
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     ports:
     - "8001:8888"
 
