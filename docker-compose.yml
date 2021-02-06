@@ -1,44 +1,31 @@
-version: "3.3"
+version: '3'
 services:
 
-  frontend:
-    build:
-      context: C:\Users\Juste\Google Drive\@ MANO\Mokslai\@KEA\AP Computer Science\3rd. Semester\Programming 2\@Projects\Mandatory Project 1 - Storm Rider\stormrider_2020\src\main\webapp
-      dockerfile: Dockerfile
-    container_name: stormrider-frontend
-    depends_on:
-      - backend
-    volumes:
-      - C:\Users\Juste\Google Drive\@ MANO\Mokslai\@KEA\AP Computer Science\3rd. Semester\Programming 2\@Projects\Mandatory Project 1 - Storm Rider\stormrider_2020\src\main\webapp:/var/www/html/
+  database:
+    container_name: stormrider-database
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: JA&Min9#7B
+      MYSQL_DATABASE: stormrider-database.cav0u4uy07ve.us-east-1.rds.amazonaws.com
+      MYSQL_USERNAME: storm
+      MYSQL_PASSWORD: riderrider
     ports:
-      - "3001:3000"
+      - "6033:3306"
 
-  backend:
-    build:
-      context: C:\Users\Juste\Google Drive\@ MANO\Mokslai\@KEA\AP Computer Science\3rd. Semester\Programming 2\@Projects\Mandatory Project 1 - Storm Rider\stormrider_2020
-      dockerfile: Dockerfile
-    container_name: stormrider-backend
+  webapp:
+    build: ./
+    container_name: stormrider-webapp
+    restart: on-failure
     depends_on:
       - database
     volumes:
       - C:\Users\Juste\Google Drive\@ MANO\Mokslai\@KEA\AP Computer Science\3rd. Semester\Programming 2\@Projects\Mandatory Project 1 - Storm Rider\stormrider_2020:/var/www/html/
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost/stormrider
-      - SPRING_DATASOURCE_USERNAME=storm
-      - SPRING_DATASOURCE_PASSWORD=rider
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      SPRING_DATASOURCE_URL: jdbc:mysql://stormrider-database.cav0u4uy07ve.us-east-1.rds.amazonaws.com:3306/stormrider
+      SPRING_DATASOURCE_USERNAME: storm
+      SPRING_DATASOURCE_PASSWORD: riderrider
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
     ports:
-    - "8001:8888"
-
-  database:
-    container_name: stormrider-database
-    image: mysql:latest
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stormrider
-      MYSQL_USER: storm
-      MYSQL_PASSWORD: rider
-    ports:
-    - "6033:3306"
+      - "8001:8888"
